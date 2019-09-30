@@ -16,12 +16,14 @@
     "format": "prettier --write '**/*.{js,json,md}'"
   },
   "dependencies": {
-    "core-js": "^3.2.1"
+    "core-js": "^3.2.1",
+    "tiny-invariant": "^1.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "babel-jest": "^24.9.0",
+    "babel-plugin-dev-expression": "^0.2.2",
     "eslint": "^6.5.0",
     "husky": "^3.0.7",
     "jest": "^24.9.0",

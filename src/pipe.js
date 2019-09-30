@@ -1,6 +1,12 @@
+import invariant from "tiny-invariant";
 import ok from "./ok";
 
 export default function pipe(...checks) {
+  invariant(
+    checks.every(check => typeof check === "function"),
+    "expected all arguments to be functions",
+  );
+
   if (checks.length === 0) {
     return ok;
   } else {
