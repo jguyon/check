@@ -1,17 +1,5 @@
-import invariant from "tiny-invariant";
-import error from "./error";
+import test from "./test";
 
-export default function required(check, message = "is required") {
-  invariant(
-    typeof check === "function",
-    "expected check argument to be a function",
-  );
-
-  return value => {
-    if (value === undefined || value === null) {
-      return error(message);
-    } else {
-      return check(value);
-    }
-  };
+export default function required(message = "is required") {
+  return test(value => value !== undefined && value !== null, message);
 }
