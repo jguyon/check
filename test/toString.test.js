@@ -1,0 +1,21 @@
+import { toString } from "../src";
+
+test("check succeeds with stringified value", () => {
+  const check = toString();
+
+  for (const [input, output] of [
+    [null, "null"],
+    [undefined, "undefined"],
+    [true, "true"],
+    [42, "42"],
+    ["value", "value"],
+    [{ toString: () => "value" }, "value"],
+  ]) {
+    const result = check(input);
+
+    expect(result).toMatchObject({
+      isOk: true,
+      value: output,
+    });
+  }
+});
