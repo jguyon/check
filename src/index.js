@@ -10,6 +10,8 @@ export { default as notEqual } from "./notEqual";
 export { default as string } from "./string";
 export { default as toString } from "./toString";
 export { default as trim } from "./trim";
+export { default as toLowerCase } from "./toLowerCase";
+export { default as toUpperCase } from "./toUpperCase";
 export { default as minLength } from "./minLength";
 export { default as maxLength } from "./maxLength";
 export { default as pattern } from "./pattern";
