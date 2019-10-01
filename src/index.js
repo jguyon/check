@@ -30,3 +30,5 @@ export { default as max } from "./max";
 export { default as lessThan } from "./lessThan";
 export { default as moreThan } from "./moreThan";
 export { default as boolean } from "./boolean";
+export { default as date } from "./date";
+export { default as toDate } from "./toDate";
