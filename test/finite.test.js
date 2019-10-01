@@ -1,0 +1,39 @@
+import { finite } from "../src";
+
+test("check succeeds when given value is finite", () => {
+  const check = finite();
+
+  for (const value of [42, -42, 0, Math.PI]) {
+    const result = check(value);
+
+    expect(result).toMatchObject({
+      isOk: true,
+      value,
+    });
+  }
+});
+
+test("checks fails when given valid is not finite", () => {
+  const check = finite();
+
+  for (const value of [Infinity, -Infinity, NaN]) {
+    const result = check(value);
+
+    expect(result).toMatchObject({
+      isOk: false,
+      path: [],
+      message: "is not a finite number",
+    });
+  }
+});
+
+test("given message is returned with the error", () => {
+  const check = finite("is not finity finite");
+  const result = check(NaN);
+
+  expect(result).toMatchObject({
+    isOk: false,
+    path: [],
+    message: "is not finity finite",
+  });
+});
