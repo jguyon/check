@@ -29,3 +29,4 @@ export { default as min } from "./min";
 export { default as max } from "./max";
 export { default as lessThan } from "./lessThan";
 export { default as moreThan } from "./moreThan";
+export { default as boolean } from "./boolean";
