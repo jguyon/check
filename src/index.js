@@ -5,6 +5,8 @@ export { default as transform } from "./transform";
 export { default as pipe } from "./pipe";
 export { default as required } from "./required";
 export { default as optional } from "./optional";
+export { default as equal } from "./equal";
+export { default as notEqual } from "./notEqual";
 export { default as string } from "./string";
 export { default as toString } from "./toString";
 export { default as trim } from "./trim";
