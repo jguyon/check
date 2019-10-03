@@ -1,14 +1,12 @@
+import _ from "lodash";
 import invariant from "tiny-invariant";
 import ok from "./ok";
 
 export default function optional(check) {
-  invariant(
-    typeof check === "function",
-    "expected check argument to be a function",
-  );
+  invariant(_.isFunction(check), "expected check argument to be a function");
 
   return value => {
-    if (value === undefined || value === null) {
+    if (_.isNil(value)) {
       return ok(null);
     } else {
       return check(value);

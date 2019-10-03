@@ -4,11 +4,9 @@ module.exports = {
       "@babel/preset-env",
       {
         modules: process.env.NODE_ENV === "test" ? "commonjs" : false,
-        useBuiltIns: "usage",
-        corejs: 3,
         loose: true,
       },
     ],
   ],
-  plugins: ["dev-expression"],
+  plugins: ["dev-expression", "lodash"],
 };

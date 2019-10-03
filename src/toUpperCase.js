@@ -1,5 +1,6 @@
+import _ from "lodash";
 import transform from "./transform";
 
 export default function toUpperCase() {
-  return transform(value => value.toUpperCase());
+  return transform(_.toUpper);
 }

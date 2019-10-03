@@ -1,11 +1,12 @@
+import _ from "lodash";
 import invariant from "tiny-invariant";
 import ok from "./ok";
 import error from "./error";
 
 export default function tuple(checks, lengthMessage) {
-  invariant(Array.isArray(checks), "expected checks argument to be an array");
+  invariant(_.isArray(checks), "expected checks argument to be an array");
   invariant(
-    checks.every(check => typeof check === "function"),
+    _.every(checks, _.isFunction),
     "expected checks argument to contain only functions",
   );
 

@@ -1,12 +1,10 @@
+import _ from "lodash";
 import invariant from "tiny-invariant";
 import ok from "./ok";
 import error from "./error";
 
 export default function collection(check) {
-  invariant(
-    typeof check === "function",
-    "expected check argument to be a function",
-  );
+  invariant(_.isFunction(check), "expected check argument to be a function");
 
   return input => {
     const output = [];

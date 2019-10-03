@@ -1,5 +1,6 @@
+import _ from "lodash";
 import transform from "./transform";
 
 export default function ceil() {
-  return transform(Math.ceil);
+  return transform(_.ceil);
 }

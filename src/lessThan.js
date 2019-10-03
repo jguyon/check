@@ -1,8 +1,9 @@
+import _ from "lodash";
 import invariant from "tiny-invariant";
 import test from "./test";
 
 export default function lessThan(max, message = "is too high") {
-  invariant(typeof max === "number", "expected max argument to be a number");
+  invariant(_.isFinite(max), "expected max argument to be a valid number");
 
   return test(value => value < max, message);
 }

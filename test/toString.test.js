@@ -4,8 +4,8 @@ test("check succeeds with stringified value", () => {
   const check = toString();
 
   for (const [input, output] of [
-    [null, "null"],
-    [undefined, "undefined"],
+    [null, ""],
+    [undefined, ""],
     [true, "true"],
     [42, "42"],
     ["value", "value"],

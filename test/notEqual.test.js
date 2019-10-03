@@ -19,7 +19,7 @@ test("check succeeds when given value is not equal", () => {
 });
 
 test("check fails when given value is equal", () => {
-  for (const value of [null, true, 42, "value", { key: "value" }]) {
+  for (const value of [null, true, 42, "value", { key: "value" }, NaN]) {
     const check = notEqual(value);
     const result = check(value);
 
