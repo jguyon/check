@@ -35,3 +35,6 @@ export { default as toDate } from "./toDate";
 export { default as object } from "./object";
 export { default as shape } from "./shape";
 export { default as association } from "./association";
+export { default as array } from "./array";
+export { default as collection } from "./collection";
+export { default as tuple } from "./tuple";
