@@ -1,5 +1,5 @@
 import test from "./test";
 
 export default function equal(value, message = "is invalid") {
-  return test(v => v === value, message);
+  return test(input => Object.is(input, value), message);
 }

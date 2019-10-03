@@ -1,7 +1,7 @@
 import { equal } from "../src";
 
 test("check succeeds when given value is equal", () => {
-  for (const value of [null, true, 42, "value", { key: "value" }]) {
+  for (const value of [null, true, 42, "value", { key: "value" }, NaN]) {
     const check = equal(value);
     const result = check(value);
 
