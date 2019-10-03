@@ -32,3 +32,6 @@ export { default as moreThan } from "./moreThan";
 export { default as boolean } from "./boolean";
 export { default as date } from "./date";
 export { default as toDate } from "./toDate";
+export { default as object } from "./object";
+export { default as shape } from "./shape";
+export { default as association } from "./association";
