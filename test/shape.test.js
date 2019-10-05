@@ -16,7 +16,7 @@ test("checks succeeds when given value has the right shape", () => {
     two: " value two  ",
   });
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: true,
     value: {
       one: "value one",
@@ -32,7 +32,7 @@ test("check fails when given value has the wrong shape", () => {
   });
   const result = check({ one: "value one" });
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: false,
     path: ["two"],
     message: 'is not equal to "value two"',
@@ -55,7 +55,7 @@ test("correct path is returned with the error", () => {
     },
   });
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: false,
     path: ["one", "two", "three"],
     message: "is invalid",

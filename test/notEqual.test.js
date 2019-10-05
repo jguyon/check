@@ -11,7 +11,7 @@ test("check succeeds when given value is not equal", () => {
     const check = notEqual(value);
     const result = check(input);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: true,
       value: input,
     });
@@ -23,7 +23,7 @@ test("check fails when given value is equal", () => {
     const check = notEqual(value);
     const result = check(value);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: false,
       path: [],
       message: "is invalid",
@@ -35,7 +35,7 @@ test("given message is returned with the error", () => {
   const check = notEqual("invalid", 'is equal to "invalid"');
   const result = check("invalid");
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: false,
     path: [],
     message: 'is equal to "invalid"',

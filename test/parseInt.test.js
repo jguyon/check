@@ -11,7 +11,7 @@ test("check succeeds when given value is a well formatted integer", () => {
   ]) {
     const result = check(input);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: true,
       value: output,
     });
@@ -22,7 +22,7 @@ test("check fails when given value is not a well formatted integer", () => {
   const check = parseInt();
   const result = check("asdf");
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: false,
     path: [],
     message: "is not a well formatted integer",
@@ -33,7 +33,7 @@ test("given radix is used to parse the integer", () => {
   const check = parseInt(16);
   const result = check("2A");
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: true,
     value: 42,
   });
@@ -43,7 +43,7 @@ test("given message is returned with the error", () => {
   const check = parseInt(10, "is no good, yo!");
   const result = check("asdf");
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: false,
     path: [],
     message: "is no good, yo!",

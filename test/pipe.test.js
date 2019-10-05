@@ -8,7 +8,7 @@ test("check succeeds when all given checks succeed", () => {
   );
   const result = check("  jerome   ");
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: true,
     value: "jerome",
   });
@@ -18,7 +18,7 @@ test("check succeeds when no checks are given", () => {
   const check = pipe();
   const result = check("value");
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: true,
     value: "value",
   });
@@ -33,7 +33,7 @@ test("check fails with error from first failing check", () => {
   );
   const result = check("     jerome           ");
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: false,
     path: [],
     message: "is too short",

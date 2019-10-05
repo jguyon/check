@@ -20,7 +20,7 @@ test("checks always succeeds with given value", () => {
   ]) {
     const result = check(value);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: true,
       value,
     });

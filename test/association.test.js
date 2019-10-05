@@ -12,7 +12,7 @@ test("check succeeds when given value has only valid values", () => {
     two: "  valid    ",
   });
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: true,
     value: {
       one: "valid",
@@ -25,7 +25,7 @@ test("check succeeds when given value is an empty object", () => {
   const check = association(equal("valid"));
   const result = check({});
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: true,
     value: {},
   });
@@ -38,7 +38,7 @@ test("check fails when given value has an invalid value", () => {
     two: "invalid",
   });
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: false,
     path: ["two"],
     message: "is invalid",
@@ -57,7 +57,7 @@ test("correct path is returned with the error", () => {
     },
   });
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: false,
     path: ["one", "two", "three"],
     message: "is invalid",

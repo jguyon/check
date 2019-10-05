@@ -12,7 +12,7 @@ test("check succeeds with floored value", () => {
   ]) {
     const result = check(input);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: true,
       value: output,
     });

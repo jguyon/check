@@ -6,7 +6,7 @@ test("check succeeds with given value when it is present", () => {
   for (const value of [42, true, false, {}, "other", 0, NaN, ""]) {
     const result = check(value);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: true,
       value,
     });
@@ -19,7 +19,7 @@ test("check succeeds with default value when given value is absent", () => {
   for (const value of [null, undefined]) {
     const result = check(value);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: true,
       value: "value",
     });

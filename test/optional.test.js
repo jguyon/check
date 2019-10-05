@@ -4,7 +4,7 @@ test("check succeeds when value is present and given check succeeds", () => {
   const check = optional(trim());
   const result = check("  jerome   ");
 
-  expect(result).toMatchObject({
+  expect(result).toEqual({
     isOk: true,
     value: "jerome",
   });
@@ -16,7 +16,7 @@ test("check succeeds when value is not present", () => {
   for (const value of [null, undefined]) {
     const result = check(value);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: true,
       value: null,
     });

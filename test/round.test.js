@@ -15,7 +15,7 @@ test("check succeeds with rounded value", () => {
   ]) {
     const result = check(input);
 
-    expect(result).toMatchObject({
+    expect(result).toEqual({
       isOk: true,
       value: output,
     });
