@@ -8,17 +8,19 @@ export default function pipe(...checks) {
     "expected all arguments to be functions",
   );
 
-  if (checks.length === 0) {
-    return ok;
-  } else {
-    return _.reduceRight(checks, (nextCheck, currCheck) => value => {
-      const result = currCheck(value);
+  return value => {
+    let output = value;
+
+    for (let i = 0; i < checks.length; i++) {
+      const result = checks[i](output);
 
       if (result.isOk) {
-        return nextCheck(result.value);
+        output = result.value;
       } else {
         return result;
       }
-    });
-  }
+    }
+
+    return ok(output);
+  };
 }
