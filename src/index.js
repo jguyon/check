@@ -1,5 +1,6 @@
 export { default as ok } from "./ok";
 export { default as error } from "./error";
+export { default as any } from "./any";
 export { default as test } from "./test";
 export { default as transform } from "./transform";
 export { default as pipe } from "./pipe";
