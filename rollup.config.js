@@ -1,39 +1,43 @@
 const path = require("path");
 const babel = require("rollup-plugin-babel");
+const replace = require("rollup-plugin-replace");
 
 const input = "src/index.js";
-
-function makeOutput(format) {
-  return {
-    file: `dist/check.${format}.js`,
-    format,
-    sourcemap: true,
-  };
-}
 
 function isDependency(id) {
   return !id.startsWith(".") && !id.startsWith(path.join(__dirname, "src"));
 }
 
-function makePlugins() {
-  return [
-    babel({
-      sourceMaps: true,
-    }),
-  ];
-}
-
 module.exports = [
+  ...["development", "production"].map(nodeEnv => ({
+    input,
+    output: {
+      file: `dist/check.${nodeEnv}.cjs.js`,
+      format: "cjs",
+      sourcemap: true,
+    },
+    external: isDependency,
+    plugins: [
+      babel({
+        sourceMaps: true,
+      }),
+      replace({
+        "process.env.NODE_ENV": JSON.stringify(nodeEnv),
+      }),
+    ],
+  })),
   {
     input,
-    output: makeOutput("cjs"),
+    output: {
+      file: "dist/check.esm.js",
+      format: "esm",
+      sourcemap: true,
+    },
     external: isDependency,
-    plugins: makePlugins(),
-  },
-  {
-    input,
-    output: makeOutput("esm"),
-    external: isDependency,
-    plugins: makePlugins(),
+    plugins: [
+      babel({
+        sourceMaps: true,
+      }),
+    ],
   },
 ];
