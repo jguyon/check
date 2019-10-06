@@ -25,14 +25,24 @@ test("check succeeds when given value is an empty array", () => {
   });
 });
 
-test("check fails when given value has an invalid value", () => {
+test("check fails when given value has invalid values", () => {
   const check = collection(equal("valid", "is invalid"));
   const result = check(["valid", "invalid one", "invalid two"]);
 
   expect(result).toEqual({
     isOk: false,
-    path: [1],
-    message: "is invalid",
+    errors: [
+      {
+        path: [1],
+        value: "invalid one",
+        message: "is invalid",
+      },
+      {
+        path: [2],
+        value: "invalid two",
+        message: "is invalid",
+      },
+    ],
   });
 });
 
@@ -59,7 +69,12 @@ test("correct path is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [1, "keyOne", "keyTwo"],
-    message: "is invalid",
+    errors: [
+      {
+        path: [1, "keyOne", "keyTwo"],
+        value: "invalid",
+        message: "is invalid",
+      },
+    ],
   });
 });

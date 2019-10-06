@@ -31,17 +31,28 @@ test("check succeeds when given value is an empty object", () => {
   });
 });
 
-test("check fails when given value has an invalid value", () => {
+test("check fails when given value has invalid values", () => {
   const check = association(equal("valid", "is invalid"));
   const result = check({
     one: "valid",
-    two: "invalid",
+    two: "invalid two",
+    three: "invalid three",
   });
 
   expect(result).toEqual({
     isOk: false,
-    path: ["two"],
-    message: "is invalid",
+    errors: [
+      {
+        path: ["two"],
+        value: "invalid two",
+        message: "is invalid",
+      },
+      {
+        path: ["three"],
+        value: "invalid three",
+        message: "is invalid",
+      },
+    ],
   });
 });
 
@@ -59,7 +70,12 @@ test("correct path is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: ["one", "two", "three"],
-    message: "is invalid",
+    errors: [
+      {
+        path: ["one", "two", "three"],
+        value: "invalid",
+        message: "is invalid",
+      },
+    ],
   });
 });

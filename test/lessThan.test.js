@@ -21,8 +21,13 @@ test("check fails when given value is too high", () => {
 
     expect(result).toEqual({
       isOk: false,
-      path: [],
-      message: "is too high",
+      errors: [
+        {
+          path: [],
+          value,
+          message: "is too high",
+        },
+      ],
     });
   }
 });
@@ -33,7 +38,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is higher than or equal to 42",
+    errors: [
+      {
+        path: [],
+        value: 84,
+        message: "is higher than or equal to 42",
+      },
+    ],
   });
 });

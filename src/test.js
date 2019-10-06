@@ -10,7 +10,7 @@ export default function test(fn, message = "is invalid") {
     if (fn(value)) {
       return ok(value);
     } else {
-      return error(message);
+      return error(value, message);
     }
   };
 }

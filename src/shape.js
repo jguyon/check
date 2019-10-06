@@ -1,7 +1,7 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
 import ok from "./ok";
-import error from "./error";
+import errors from "./errors";
 
 export default function shape(checks) {
   invariant(_.isObjectLike(checks), "expected checks argument to be an object");
@@ -14,7 +14,9 @@ export default function shape(checks) {
   );
 
   return input => {
+    let isOk = true;
     const output = {};
+    const errs = [];
 
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
@@ -23,10 +25,22 @@ export default function shape(checks) {
       if (result.isOk) {
         output[key] = result.value;
       } else {
-        return error(result.message, [key, ...result.path]);
+        isOk = false;
+        for (let j = 0; j < result.errors.length; j++) {
+          const { path, value, message } = result.errors[j];
+          errs.push({
+            path: [key, ...path],
+            value,
+            message,
+          });
+        }
       }
     }
 
-    return ok(output);
+    if (isOk) {
+      return ok(output);
+    } else {
+      return errors(errs);
+    }
   };
 }

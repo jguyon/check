@@ -27,19 +27,38 @@ test("check fails when given value does not have the right length", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "does not have 2 items",
+    errors: [
+      {
+        path: [],
+        value: [1],
+        message: "does not have 2 items",
+      },
+    ],
   });
 });
 
-test("check fails when one of the checks fails", () => {
-  const check = tuple([equal("one"), equal("two", "is invalid")]);
-  const result = check(["one", "three"]);
+test("check fails when some of the checks fail", () => {
+  const check = tuple([
+    equal("one"),
+    equal("two", "is invalid two"),
+    equal("three", "is invalid three"),
+  ]);
+  const result = check(["one", "invalid two", "invalid three"]);
 
   expect(result).toEqual({
     isOk: false,
-    path: [1],
-    message: "is invalid",
+    errors: [
+      {
+        path: [1],
+        value: "invalid two",
+        message: "is invalid two",
+      },
+      {
+        path: [2],
+        value: "invalid three",
+        message: "is invalid three",
+      },
+    ],
   });
 });
 
@@ -52,8 +71,13 @@ test("given message is returned with a length error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "does not have the right lengthy length",
+    errors: [
+      {
+        path: [],
+        value: ["one"],
+        message: "does not have the right lengthy length",
+      },
+    ],
   });
 });
 
@@ -77,7 +101,12 @@ test("correct path is returned with a value error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [1, "two", "three"],
-    message: "is invalid",
+    errors: [
+      {
+        path: [1, "two", "three"],
+        value: "invalid",
+        message: "is invalid",
+      },
+    ],
   });
 });

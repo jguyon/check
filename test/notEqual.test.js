@@ -25,8 +25,13 @@ test("check fails when given value is equal", () => {
 
     expect(result).toEqual({
       isOk: false,
-      path: [],
-      message: "is invalid",
+      errors: [
+        {
+          path: [],
+          value,
+          message: "is invalid",
+        },
+      ],
     });
   }
 });
@@ -37,7 +42,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: 'is equal to "invalid"',
+    errors: [
+      {
+        path: [],
+        value: "invalid",
+        message: 'is equal to "invalid"',
+      },
+    ],
   });
 });

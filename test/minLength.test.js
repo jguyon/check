@@ -19,8 +19,13 @@ test("check fails when given value is too short", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is too short",
+    errors: [
+      {
+        path: [],
+        value: [1, 2, 3],
+        message: "is too short",
+      },
+    ],
   });
 });
 
@@ -30,7 +35,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "has less than 4 items",
+    errors: [
+      {
+        path: [],
+        value: [1, 2],
+        message: "has less than 4 items",
+      },
+    ],
   });
 });

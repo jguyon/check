@@ -29,13 +29,28 @@ test("check fails when given value has the wrong shape", () => {
   const check = shape({
     one: equal("value one"),
     two: equal("value two", 'is not equal to "value two"'),
+    three: equal("value three", 'is not equal to "value three"'),
   });
-  const result = check({ one: "value one" });
+  const result = check({
+    one: "value one",
+    two: "asdf",
+    three: "fdsa",
+  });
 
   expect(result).toEqual({
     isOk: false,
-    path: ["two"],
-    message: 'is not equal to "value two"',
+    errors: [
+      {
+        path: ["two"],
+        value: "asdf",
+        message: 'is not equal to "value two"',
+      },
+      {
+        path: ["three"],
+        value: "fdsa",
+        message: 'is not equal to "value three"',
+      },
+    ],
   });
 });
 
@@ -57,7 +72,12 @@ test("correct path is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: ["one", "two", "three"],
-    message: "is invalid",
+    errors: [
+      {
+        path: ["one", "two", "three"],
+        value: "invalid",
+        message: "is invalid",
+      },
+    ],
   });
 });

@@ -13,7 +13,7 @@ export default function parseIntCheck(
     const number = parseInt(value, radix);
 
     if (isNaN(number)) {
-      return error(message);
+      return error(value, message);
     } else {
       return ok(number);
     }

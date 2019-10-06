@@ -17,8 +17,13 @@ test("check fails when given value is not a string", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not a date",
+    errors: [
+      {
+        path: [],
+        value: 42,
+        message: "is not a date",
+      },
+    ],
   });
 });
 
@@ -28,7 +33,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not a datey date",
+    errors: [
+      {
+        path: [],
+        value: 42,
+        message: "is not a datey date",
+      },
+    ],
   });
 });

@@ -8,7 +8,7 @@ export default function parseFloatCheck(
     const number = parseFloat(value);
 
     if (isNaN(number)) {
-      return error(message);
+      return error(value, message);
     } else {
       return ok(number);
     }

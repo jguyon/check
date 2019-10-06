@@ -19,8 +19,13 @@ test("check fails when given value is not an integer", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not an integer",
+    errors: [
+      {
+        path: [],
+        value: Math.PI,
+        message: "is not an integer",
+      },
+    ],
   });
 });
 
@@ -30,7 +35,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not an integery integer",
+    errors: [
+      {
+        path: [],
+        value: Math.PI,
+        message: "is not an integery integer",
+      },
+    ],
   });
 });

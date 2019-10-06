@@ -35,7 +35,12 @@ test("check fails with error from first failing check", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is too short",
+    errors: [
+      {
+        path: [],
+        value: "jerome",
+        message: "is too short",
+      },
+    ],
   });
 });

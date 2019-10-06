@@ -19,8 +19,13 @@ test("check fails when given value is too long", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is too long",
+    errors: [
+      {
+        path: [],
+        value: [1, 2, 3],
+        message: "is too long",
+      },
+    ],
   });
 });
 
@@ -30,7 +35,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "has more than 2 items",
+    errors: [
+      {
+        path: [],
+        value: [1, 2, 3, 4],
+        message: "has more than 2 items",
+      },
+    ],
   });
 });

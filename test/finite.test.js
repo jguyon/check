@@ -21,8 +21,13 @@ test("checks fails when given valid is not finite", () => {
 
     expect(result).toEqual({
       isOk: false,
-      path: [],
-      message: "is not a finite number",
+      errors: [
+        {
+          path: [],
+          value,
+          message: "is not a finite number",
+        },
+      ],
     });
   }
 });
@@ -33,7 +38,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not finity finite",
+    errors: [
+      {
+        path: [],
+        value: NaN,
+        message: "is not finity finite",
+      },
+    ],
   });
 });

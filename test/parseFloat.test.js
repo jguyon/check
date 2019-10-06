@@ -25,8 +25,13 @@ test("check fails when given value is not a well formatted float", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not a well formatted number",
+    errors: [
+      {
+        path: [],
+        value: "asdf",
+        message: "is not a well formatted number",
+      },
+    ],
   });
 });
 
@@ -36,7 +41,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is no good, yo!",
+    errors: [
+      {
+        path: [],
+        value: "asdf",
+        message: "is no good, yo!",
+      },
+    ],
   });
 });

@@ -21,8 +21,13 @@ test("check fails when given value is not an array", () => {
 
     expect(result).toEqual({
       isOk: false,
-      path: [],
-      message: "is not an array",
+      errors: [
+        {
+          path: [],
+          value,
+          message: "is not an array",
+        },
+      ],
     });
   }
 });
@@ -33,7 +38,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not an arrayey array",
+    errors: [
+      {
+        path: [],
+        value: 42,
+        message: "is not an arrayey array",
+      },
+    ],
   });
 });

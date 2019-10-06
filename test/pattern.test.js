@@ -16,8 +16,13 @@ test("check fails when given value does not match pattern", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is invalid",
+    errors: [
+      {
+        path: [],
+        value: "ABC",
+        message: "is invalid",
+      },
+    ],
   });
 });
 
@@ -27,7 +32,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "does not contain a lowercase letter",
+    errors: [
+      {
+        path: [],
+        value: "ABC",
+        message: "does not contain a lowercase letter",
+      },
+    ],
   });
 });

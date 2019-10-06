@@ -16,8 +16,13 @@ test("check fails when given value is not a number", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not a number",
+    errors: [
+      {
+        path: [],
+        value: "42",
+        message: "is not a number",
+      },
+    ],
   });
 });
 
@@ -27,7 +32,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not a numbery number",
+    errors: [
+      {
+        path: [],
+        value: "42",
+        message: "is not a numbery number",
+      },
+    ],
   });
 });

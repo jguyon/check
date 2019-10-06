@@ -21,8 +21,13 @@ test("check fails when given value is not present", () => {
 
     expect(result).toEqual({
       isOk: false,
-      path: [],
-      message: "is required",
+      errors: [
+        {
+          path: [],
+          value,
+          message: "is required",
+        },
+      ],
     });
   }
 });
@@ -33,7 +38,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "should be present",
+    errors: [
+      {
+        path: [],
+        value: null,
+        message: "should be present",
+      },
+    ],
   });
 });

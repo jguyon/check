@@ -19,8 +19,13 @@ test("check fails when given value is not a boolean", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not a boolean",
+    errors: [
+      {
+        path: [],
+        value: 42,
+        message: "is not a boolean",
+      },
+    ],
   });
 });
 
@@ -30,7 +35,12 @@ test("given message is returned with the error", () => {
 
   expect(result).toEqual({
     isOk: false,
-    path: [],
-    message: "is not a booly boolean",
+    errors: [
+      {
+        path: [],
+        value: 42,
+        message: "is not a booly boolean",
+      },
+    ],
   });
 });
