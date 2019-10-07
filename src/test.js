@@ -6,8 +6,8 @@ import error from "./error";
 export default function test(fn, message = "is invalid") {
   invariant(_.isFunction(fn), "expected fn argument to be a function");
 
-  return value => {
-    if (fn(value)) {
+  return (value, refResults) => {
+    if (fn(value, refResults)) {
       return ok(value);
     } else {
       return error(value, message);

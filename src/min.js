@@ -1,9 +1,17 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import { isRef } from "./ref";
+import withRefs from "./withRefs";
 import test from "./test";
 
 export default function min(min, message = "is too low") {
-  invariant(_.isFinite(min), "expected min argument to be a valid number");
+  invariant(
+    isRef(min) || _.isFinite(min),
+    "expected min argument to be a valid number",
+  );
 
-  return test(value => value >= min, message);
+  return withRefs(
+    [min],
+    test((value, [min]) => !min.isOk || value >= min.value, message),
+  );
 }

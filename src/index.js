@@ -3,6 +3,7 @@ export { default as error } from "./error";
 export { default as errors } from "./errors";
 export { default as ref, isRef } from "./ref";
 export { default as withRefs, hasRefs } from "./withRefs";
+export { default as checkWithRefs } from "./checkWithRefs";
 export { default as any } from "./any";
 export { default as test } from "./test";
 export { default as transform } from "./transform";

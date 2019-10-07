@@ -5,5 +5,5 @@ import ok from "./ok";
 export default function transform(fn) {
   invariant(_.isFunction(fn), "expected fn argument to be a function");
 
-  return value => ok(fn(value));
+  return (value, refResults) => ok(fn(value, refResults));
 }
