@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { ref, isRef } from "../src";
 
 test("regular value is not recognized as a ref", () => {
@@ -23,6 +24,6 @@ test("ref is created", () => {
 
     expect(isRef(r)).toBe(true);
     expect(r.path).toBe(path);
-    expect(r.transform).toBe(transform);
+    expect(r.transform).toBe(transform || _.identity);
   }
 });

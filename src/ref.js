@@ -3,10 +3,10 @@ import invariant from "tiny-invariant";
 
 const IS_REF = {};
 
-export default function ref(path, transform) {
+export default function ref(path, transform = _.identity) {
   invariant(_.isArray(path), "expected path argument to be an array");
   invariant(
-    transform === undefined || _.isFunction(transform),
+    _.isFunction(transform),
     "expected transform argument to be a function",
   );
 
