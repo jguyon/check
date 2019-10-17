@@ -1,4 +1,4 @@
-import { tuple, shape, pipe, string, trim, equal } from "../src";
+import { tuple, shape, pipe, string, trim, equal, any, ref } from "../src";
 
 test("check succeeds when given value has the right shape", () => {
   const check = tuple([
@@ -18,6 +18,27 @@ test("check succeeds when given value has the right shape", () => {
   expect(result).toEqual({
     isOk: true,
     value: ["one", "two"],
+  });
+});
+
+test("check succeeds when given value has the right shape with refs", () => {
+  const check = tuple([
+    pipe(
+      string(),
+      trim(),
+      equal(ref([1])),
+    ),
+    pipe(
+      string(),
+      trim(),
+      equal("valid"),
+    ),
+  ]);
+  const result = check(["  valid  ", "    valid "]);
+
+  expect(result).toEqual({
+    isOk: true,
+    value: ["valid", "valid"],
   });
 });
 
@@ -59,6 +80,89 @@ test("check fails when some of the checks fail", () => {
         message: "is invalid three",
       },
     ],
+  });
+});
+
+test("check fails when some of the checks with refs fail", () => {
+  const check = tuple([
+    equal("valid"),
+    equal(ref([0]), "is not equal to index 0"),
+    equal("three", 'is not equal to "three"'),
+  ]);
+  const result = check(["valid", "invalid", "four"]);
+
+  expect(result).toEqual({
+    isOk: false,
+    errors: [
+      {
+        path: [1],
+        value: "invalid",
+        message: "is not equal to index 0",
+      },
+      {
+        path: [2],
+        value: "four",
+        message: 'is not equal to "three"',
+      },
+    ],
+  });
+});
+
+test("cascading refs are supported", () => {
+  const check = tuple([
+    pipe(
+      trim(),
+      equal(ref([1])),
+    ),
+    trim(),
+    pipe(
+      trim(),
+      equal(ref([0])),
+    ),
+  ]);
+  const validResult = check(["  value ", " value    ", "     value   "]);
+  const invalidZeroResult = check(["invalid", "valid", "valid"]);
+  const invalidTwoResult = check(["valid", "valid", "invalid"]);
+
+  expect(validResult).toEqual({
+    isOk: true,
+    value: ["value", "value", "value"],
+  });
+  expect(invalidZeroResult).toEqual({
+    isOk: false,
+    errors: [
+      {
+        path: [0],
+        value: "invalid",
+        message: "is invalid",
+      },
+    ],
+  });
+  expect(invalidTwoResult).toEqual({
+    isOk: false,
+    errors: [
+      {
+        path: [2],
+        value: "invalid",
+        message: "is invalid",
+      },
+    ],
+  });
+});
+
+test("transformed refs are supported", () => {
+  const check = tuple([
+    any(),
+    pipe(
+      trim(),
+      equal(ref([0], v => v.trim())),
+    ),
+  ]);
+  const result = check(["  valid ", "   valid     "]);
+
+  expect(result).toEqual({
+    isOk: true,
+    value: ["  valid ", "valid"],
   });
 });
 
@@ -109,4 +213,33 @@ test("correct path is returned with a value error", () => {
       },
     ],
   });
+});
+
+test("invalid refs are not supported", () => {
+  for (const make of [
+    () => tuple([equal(ref(["invalid"]))]),
+    () => tuple([any(), equal(ref([0.123]))]),
+    () => tuple([equal(ref([1]))]),
+  ]) {
+    expect(() => make()).toThrowError("expected ref to reference a valid path");
+  }
+});
+
+test("circular refs are not supported", () => {
+  for (const make of [
+    () => tuple([equal(ref([1])), equal(ref([0]))]),
+    () => tuple([equal(ref([]))]),
+    () =>
+      tuple([
+        equal(ref([1])),
+        equal(ref([2])),
+        equal(ref([3])),
+        equal(ref([4])),
+        equal(ref([0])),
+      ]),
+  ]) {
+    expect(() => make()).toThrowError(
+      "expected no circular dependencies in refs",
+    );
+  }
 });

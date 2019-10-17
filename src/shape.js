@@ -62,11 +62,11 @@ function sortCheckKeys(keys, checks) {
       const check = checks[key];
 
       if (hasRefs(check)) {
-        for (const ref of check.refs) {
+        _.forEach(check.refs, ref => {
           if (isRef(ref)) {
             processKey(ref.path[0]);
           }
-        }
+        });
       }
 
       sortedKeys.push(key);
