@@ -1,10 +1,15 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import { hasRefs } from "./withRefs";
 import ok from "./ok";
 import errors from "./errors";
 
 export default function collection(check) {
   invariant(_.isFunction(check), "expected check argument to be a function");
+  invariant(
+    !hasRefs(check),
+    "expected check argument not to have unresolved refs",
+  );
 
   return input => {
     let isOk = true;
