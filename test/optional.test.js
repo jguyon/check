@@ -1,4 +1,4 @@
-import { optional, string, trim } from "../src";
+import { optional, string, trim, ok } from "../src";
 
 test("check succeeds when value is present and given check succeeds", () => {
   const check = optional(trim());
@@ -21,4 +21,14 @@ test("check succeeds when value is not present", () => {
       value: null,
     });
   }
+});
+
+test("parents are passed to given check", () => {
+  const check = optional((value, ...parents) => ok(parents));
+  const result = check(42, "one", "two");
+
+  expect(result).toEqual({
+    isOk: true,
+    value: ["one", "two"],
+  });
 });

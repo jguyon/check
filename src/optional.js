@@ -5,11 +5,11 @@ import ok from "./ok";
 export default function optional(check) {
   invariant(_.isFunction(check), "expected check argument to be a function");
 
-  return value => {
+  return (value, ...parents) => {
     if (_.isNil(value)) {
       return ok(null);
     } else {
-      return check(value);
+      return check(value, ...parents);
     }
   };
 }
