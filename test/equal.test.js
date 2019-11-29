@@ -36,7 +36,7 @@ test("check fails when given value is not equal", () => {
   }
 });
 
-test("refs are supported for equal value", () => {
+test("refs are supported for test value", () => {
   const check = equal(ref(["equalTo"]));
   const equalResult = check("value", { equalTo: "value" });
   const nonEqualResult = check("other", { equalTo: "value" });
