@@ -1,4 +1,4 @@
-import { pipe, string, trim, minLength, pattern } from "../src";
+import { pipe, string, trim, minLength, pattern, ok } from "../src";
 
 test("check succeeds when all given checks succeed", () => {
   const check = pipe(
@@ -42,5 +42,18 @@ test("check fails with error from first failing check", () => {
         message: "is too short",
       },
     ],
+  });
+});
+
+test("parents are passed to checks", () => {
+  const check = pipe(
+    (value, ...parents) => ok(parents),
+    (value, ...parents) => ok([...value, ...parents]),
+  );
+  const result = check(null, "parent1", "parent2");
+
+  expect(result).toEqual({
+    isOk: true,
+    value: ["parent1", "parent2", "parent1", "parent2"],
   });
 });

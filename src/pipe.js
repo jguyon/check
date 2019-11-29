@@ -8,11 +8,11 @@ export default function pipe(...checks) {
     "expected all arguments to be functions",
   );
 
-  return value => {
+  return (value, ...parents) => {
     let output = value;
 
     for (let i = 0; i < checks.length; i++) {
-      const result = checks[i](output);
+      const result = checks[i](output, ...parents);
 
       if (result.isOk) {
         output = result.value;
