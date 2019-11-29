@@ -12,7 +12,7 @@ test("check succeeds when given value is equal", () => {
   }
 });
 
-test("check fails when given valid is not equal", () => {
+test("check fails when given value is not equal", () => {
   for (const [value, input] of [
     [null, undefined],
     [true, false],
