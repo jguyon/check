@@ -41,3 +41,15 @@ test("given message is returned with the error", () => {
     ],
   });
 });
+
+test("parents are passed to the test function", () => {
+  const check = testCheck(
+    (value, one, two) => one === "parent1" && two === "parent2",
+  );
+  const result = check(42, "parent1", "parent2");
+
+  expect(result).toEqual({
+    isOk: true,
+    value: 42,
+  });
+});
