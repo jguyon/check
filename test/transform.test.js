@@ -9,3 +9,13 @@ test("check succeeds with transformed value", () => {
     value: "42",
   });
 });
+
+test("parents are passed to the transform function", () => {
+  const check = transform((value, ...parents) => parents);
+  const result = check(null, "parent1", "parent2");
+
+  expect(result).toEqual({
+    isOk: true,
+    value: ["parent1", "parent2"],
+  });
+});
