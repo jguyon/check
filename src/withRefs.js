@@ -7,7 +7,7 @@ export default function withRefs(refs, check) {
   invariant(_.isFunction(check), "expected check argument to be a function");
 
   if (_.every(refs, ref => !isRef(ref))) {
-    return (value, ...parents) => check(refs, value, ...parents);
+    return value => check(value, ...refs);
   } else {
     return (value, ...parents) => {
       const refValues = [];
@@ -28,7 +28,7 @@ export default function withRefs(refs, check) {
         }
       }
 
-      return check(refValues, value, ...parents);
+      return check(value, ...refValues);
     };
   }
 }

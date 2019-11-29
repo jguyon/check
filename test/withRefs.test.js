@@ -1,7 +1,8 @@
+import invariant from "tiny-invariant";
 import { ref, withRefs, ok, error, up } from "../src";
 
 test("all refs are resolved before checking", () => {
-  const check = withRefs([ref(["one"]), ref(["two"])], ([one, two], value) =>
+  const check = withRefs([ref(["one"]), ref(["two"])], (value, one, two) =>
     ok({
       one,
       two,
@@ -21,7 +22,7 @@ test("all refs are resolved before checking", () => {
 });
 
 test("literal refs are resolved to themselves", () => {
-  const check = withRefs([ref(["value"]), 42], ([one, two]) =>
+  const check = withRefs([ref(["value"]), 42], (value, one, two) =>
     ok({
       one,
       two,
@@ -38,28 +39,15 @@ test("literal refs are resolved to themselves", () => {
   });
 });
 
-test("parents are given to the check", () => {
-  const check = withRefs([ref([])], (refValues, value, ...parents) =>
-    ok(parents),
-  );
-  const result = check(null, "parent1", "parent2");
-
-  expect(result).toEqual({
-    isOk: true,
-    value: ["parent1", "parent2"],
-  });
-});
-
 test("check with only literal refs works like a normal check", () => {
-  const check = withRefs([1, 2], ([one, two], value, ...parents) =>
+  const check = withRefs([1, 2], (value, one, two) =>
     ok({
       one,
       two,
       value,
-      parents,
     }),
   );
-  const result = check("value", "parent1", "parent2");
+  const result = check("value");
 
   expect(result).toEqual({
     isOk: true,
@@ -67,13 +55,12 @@ test("check with only literal refs works like a normal check", () => {
       one: 1,
       two: 2,
       value: "value",
-      parents: ["parent1", "parent2"],
     },
   });
 });
 
 test("path with multiple keys is resolved", () => {
-  const check = withRefs([ref(["one", 2, "three"])], ([refValue]) =>
+  const check = withRefs([ref(["one", 2, "three"])], (value, refValue) =>
     ok(refValue),
   );
   const result = check(null, { one: [null, null, { three: 42 }] });
@@ -85,7 +72,7 @@ test("path with multiple keys is resolved", () => {
 });
 
 test("empty path is resolved", () => {
-  const check = withRefs([ref([])], ([refValue]) => ok(refValue));
+  const check = withRefs([ref([])], (value, refValue) => ok(refValue));
   const result = check(null, "parent");
 
   expect(result).toEqual({
@@ -95,7 +82,7 @@ test("empty path is resolved", () => {
 });
 
 test("path is resolved to undefined when a key cannot be accessed", () => {
-  const check = withRefs([ref(["one", "two", "three"])], ([refValue]) =>
+  const check = withRefs([ref(["one", "two", "three"])], (value, refValue) =>
     ok(refValue),
   );
 
@@ -124,7 +111,7 @@ test("path keys are resolved on any object-like values", () => {
     { path: ["number"], parent: fn, value: 42 },
     { path: ["length"], parent: "123", value: 3 },
   ]) {
-    const check = withRefs([ref(path)], ([refValue]) => ok(refValue));
+    const check = withRefs([ref(path)], (value, refValue) => ok(refValue));
     const result = check(null, parent);
 
     expect(result).toEqual({
@@ -135,7 +122,7 @@ test("path keys are resolved on any object-like values", () => {
 });
 
 test("path is resolved on grandparent", () => {
-  const check = withRefs([ref([up, up, "one", "two"])], ([refValue]) =>
+  const check = withRefs([ref([up, up, "one", "two"])], (value, refValue) =>
     ok(refValue),
   );
   const result = check(null, null, null, { one: { two: 42 } });
@@ -147,7 +134,7 @@ test("path is resolved on grandparent", () => {
 });
 
 test("path is resolved to undefined when grandparent does not exist", () => {
-  const check = withRefs([ref([up])], ([refValue]) => ok(refValue));
+  const check = withRefs([ref([up])], (value, refValue) => ok(refValue));
   const result = check(null);
 
   expect(result).toEqual({
@@ -159,7 +146,7 @@ test("path is resolved to undefined when grandparent does not exist", () => {
 test("check is given resolved ref when its check succeeds", () => {
   const check = withRefs(
     [ref(["value"], value => ok(value.toUpperCase()))],
-    ([refValue]) => ok(refValue),
+    (value, refValue) => ok(refValue),
   );
   const result = check(null, { value: "value" });
 
@@ -172,7 +159,7 @@ test("check is given resolved ref when its check succeeds", () => {
 test("check fails when ref's check fails", () => {
   const check = withRefs(
     [ref(["value"]), ref(["value"], () => error("value", "message"))],
-    ([refValue]) => ok(refValue),
+    () => invariant(false),
   );
   const result = check(null, { value: 42 });
 
@@ -185,7 +172,7 @@ test("check fails when ref's check fails", () => {
 test("check fails with ref's errors when configured", () => {
   const check = withRefs(
     [ref([up, "value"], () => error("value", "message", ["key"]), true)],
-    ([refValue]) => ok(refValue),
+    () => invariant(false),
   );
   const result = check();
 
