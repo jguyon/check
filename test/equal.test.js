@@ -1,4 +1,4 @@
-import { equal } from "../src";
+import { equal, ref } from "../src";
 
 test("check succeeds when given value is equal", () => {
   for (const value of [null, true, 42, "value", { key: "value" }, NaN]) {
@@ -34,6 +34,27 @@ test("check fails when given value is not equal", () => {
       ],
     });
   }
+});
+
+test("refs are supported for equal value", () => {
+  const check = equal(ref(["equalTo"]));
+  const equalResult = check("value", { equalTo: "value" });
+  const nonEqualResult = check("other", { equalTo: "value" });
+
+  expect(equalResult).toEqual({
+    isOk: true,
+    value: "value",
+  });
+  expect(nonEqualResult).toEqual({
+    isOk: false,
+    errors: [
+      {
+        path: [],
+        value: "other",
+        message: "is invalid",
+      },
+    ],
+  });
 });
 
 test("given message is returned with the error", () => {
