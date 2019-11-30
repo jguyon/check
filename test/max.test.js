@@ -1,4 +1,4 @@
-import { max } from "../src";
+import { max, ref } from "../src";
 
 test("check succeeds when given value is low enough", () => {
   const check = max(42);
@@ -30,6 +30,27 @@ test("check fails when given value is too high", () => {
       ],
     });
   }
+});
+
+test("refs are supported for max value", () => {
+  const check = max(ref(["max"]));
+  const lesserResult = check(42, { max: 50 });
+  const greaterResult = check(42, { max: 3 });
+
+  expect(lesserResult).toEqual({
+    isOk: true,
+    value: 42,
+  });
+  expect(greaterResult).toEqual({
+    isOk: false,
+    errors: [
+      {
+        path: [],
+        value: 42,
+        message: "is too high",
+      },
+    ],
+  });
 });
 
 test("given message is returned with the error", () => {
