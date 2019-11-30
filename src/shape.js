@@ -13,14 +13,14 @@ export default function shape(checks) {
     "expected checks argument to contain only functions",
   );
 
-  return input => {
+  return (input, ...parents) => {
     let isOk = true;
     const output = {};
     const errs = [];
 
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
-      const result = checks[key](input[key]);
+      const result = checks[key](input[key], input, ...parents);
 
       if (result.isOk) {
         output[key] = result.value;

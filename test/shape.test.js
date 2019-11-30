@@ -1,6 +1,6 @@
-import { shape, pipe, trim, equal } from "../src";
+import { shape, pipe, trim, equal, ok } from "../src";
 
-test("checks succeeds when given value has the right shape", () => {
+test("check succeeds when given value has the right shape", () => {
   const check = shape({
     one: pipe(
       trim(),
@@ -79,5 +79,21 @@ test("correct path is returned with the error", () => {
         message: "is invalid",
       },
     ],
+  });
+});
+
+test("parents are passed to checks", () => {
+  const check = shape({
+    one: (value, ...parents) => ok(parents),
+    two: (value, ...parents) => ok(parents),
+  });
+  const result = check({ key: "value" }, "one", "two");
+
+  expect(result).toEqual({
+    isOk: true,
+    value: {
+      one: [{ key: "value" }, "one", "two"],
+      two: [{ key: "value" }, "one", "two"],
+    },
   });
 });
