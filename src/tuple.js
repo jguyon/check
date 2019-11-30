@@ -21,14 +21,14 @@ export default function tuple(checks, lengthMessage) {
     }
 
     let isOk = true;
-    const output = [];
+    const output = new Array(checks.length);
     const errs = [];
 
     for (let i = 0; i < checks.length; i++) {
       const result = checks[i](input[i], input, ...parents);
 
       if (result.isOk) {
-        output.push(result.value);
+        output[i] = result.value;
       } else {
         isOk = false;
         for (let j = 0; j < result.errors.length; j++) {
