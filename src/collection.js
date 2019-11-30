@@ -6,13 +6,13 @@ import errors from "./errors";
 export default function collection(check) {
   invariant(_.isFunction(check), "expected check argument to be a function");
 
-  return input => {
+  return (input, ...parents) => {
     let isOk = true;
     const output = [];
     const errs = [];
 
     for (let i = 0; i < input.length; i++) {
-      const result = check(input[i]);
+      const result = check(input[i], input, ...parents);
 
       if (result.isOk) {
         output.push(result.value);
