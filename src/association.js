@@ -6,7 +6,7 @@ import errors from "./errors";
 export default function association(check) {
   invariant(_.isFunction(check), "expected check argument to be a function");
 
-  return input => {
+  return (input, ...parents) => {
     let isOk = true;
     const output = {};
     const errs = [];
@@ -14,7 +14,7 @@ export default function association(check) {
 
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
-      const result = check(input[key]);
+      const result = check(input[key], input, ...parents);
 
       if (result.isOk) {
         output[key] = result.value;

@@ -1,4 +1,4 @@
-import { association, pipe, trim, equal } from "../src";
+import { association, pipe, trim, equal, ok } from "../src";
 
 test("check succeeds when given value has only valid values", () => {
   const check = association(
@@ -77,5 +77,18 @@ test("correct path is returned with the error", () => {
         message: "is invalid",
       },
     ],
+  });
+});
+
+test("parents are passed to child check", () => {
+  const check = association((value, ...parents) => ok(parents));
+  const result = check({ one: 1, two: 2 }, "one", "two");
+
+  expect(result).toEqual({
+    isOk: true,
+    value: {
+      one: [{ one: 1, two: 2 }, "one", "two"],
+      two: [{ one: 1, two: 2 }, "one", "two"],
+    },
   });
 });
