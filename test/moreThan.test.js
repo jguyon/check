@@ -1,4 +1,4 @@
-import { moreThan } from "../src";
+import { moreThan, ref } from "../src";
 
 test("check succeeds when given value is high enough", () => {
   const check = moreThan(42);
@@ -30,6 +30,27 @@ test("check fails when given value is too low", () => {
       ],
     });
   }
+});
+
+test("refs are supported for min value", () => {
+  const check = moreThan(ref(["min"]));
+  const greaterResult = check(42, { min: 3 });
+  const lesserResult = check(42, { min: 50 });
+
+  expect(greaterResult).toEqual({
+    isOk: true,
+    value: 42,
+  });
+  expect(lesserResult).toEqual({
+    isOk: false,
+    errors: [
+      {
+        path: [],
+        value: 42,
+        message: "is too low",
+      },
+    ],
+  });
 });
 
 test("given message is returned with the error", () => {
