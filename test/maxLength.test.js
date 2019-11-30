@@ -1,4 +1,4 @@
-import { maxLength } from "../src";
+import { maxLength, ref } from "../src";
 
 test("check succeeds when given value is short enough", () => {
   const check = maxLength(4);
@@ -18,6 +18,27 @@ test("check fails when given value is too long", () => {
   const result = check([1, 2, 3]);
 
   expect(result).toEqual({
+    isOk: false,
+    errors: [
+      {
+        path: [],
+        value: [1, 2, 3],
+        message: "is too long",
+      },
+    ],
+  });
+});
+
+test("refs are supported for max value", () => {
+  const check = maxLength(ref(["max"]));
+  const lesserResult = check([1, 2, 3], { max: 4 });
+  const greaterResult = check([1, 2, 3], { max: 2 });
+
+  expect(lesserResult).toEqual({
+    isOk: true,
+    value: [1, 2, 3],
+  });
+  expect(greaterResult).toEqual({
     isOk: false,
     errors: [
       {
