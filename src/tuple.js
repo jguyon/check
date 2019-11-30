@@ -15,7 +15,7 @@ export default function tuple(checks, lengthMessage) {
     lengthMessage = `does not have ${checks.length} items`;
   }
 
-  return input => {
+  return (input, ...parents) => {
     if (input.length !== checks.length) {
       return error(input, lengthMessage);
     }
@@ -25,7 +25,7 @@ export default function tuple(checks, lengthMessage) {
     const errs = [];
 
     for (let i = 0; i < checks.length; i++) {
-      const result = checks[i](input[i]);
+      const result = checks[i](input[i], input, ...parents);
 
       if (result.isOk) {
         output.push(result.value);

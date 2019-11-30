@@ -1,4 +1,4 @@
-import { tuple, shape, pipe, string, trim, equal } from "../src";
+import { tuple, shape, pipe, string, trim, equal, ok } from "../src";
 
 test("check succeeds when given value has the right shape", () => {
   const check = tuple([
@@ -108,5 +108,18 @@ test("correct path is returned with a value error", () => {
         message: "is invalid",
       },
     ],
+  });
+});
+
+test("parents are passed to checks", () => {
+  const check = tuple([
+    (value, ...parents) => ok(parents),
+    (value, ...parents) => ok(parents),
+  ]);
+  const result = check([1, 2], "one", "two");
+
+  expect(result).toEqual({
+    isOk: true,
+    value: [[[1, 2], "one", "two"], [[1, 2], "one", "two"]],
   });
 });
