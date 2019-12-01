@@ -1,11 +1,12 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import failure from "./failure";
 import ok from "./ok";
 
 export default function pipe(...checks) {
   invariant(
     _.every(checks, _.isFunction),
-    "expected all arguments to be functions",
+    failure("pipe", "expected all arguments to be functions"),
   );
 
   return (value, ...parents) => {

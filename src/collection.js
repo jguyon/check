@@ -1,10 +1,14 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import failure from "./failure";
 import ok from "./ok";
 import errors from "./errors";
 
 export default function collection(check) {
-  invariant(_.isFunction(check), "expected check argument to be a function");
+  invariant(
+    _.isFunction(check),
+    failure("collection", "expected `check` argument to be a function"),
+  );
 
   return (input, ...parents) => {
     let isOk = true;

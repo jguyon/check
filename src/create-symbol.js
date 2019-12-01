@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 let id = Math.random();
 
 export default function createSymbol(name) {
-  invariant(_.isString(name), "expected name argument to be a string");
+  invariant(_.isString(name), "expected `name` argument to be a string");
 
   if (typeof Symbol === "function") {
     return Symbol(`check.${name}`);

@@ -1,10 +1,17 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import failure from "./failure";
 import { isRef, getRef } from "./ref";
 
 export default function withRefs(refs, check) {
-  invariant(_.isArray(refs), "expected refs argument to be an array");
-  invariant(_.isFunction(check), "expected check argument to be a function");
+  invariant(
+    _.isArray(refs),
+    failure("withRefs", "expected `refs` argument to be an array"),
+  );
+  invariant(
+    _.isFunction(check),
+    failure("withRefs", "expected `check` argument to be a function"),
+  );
 
   if (_.every(refs, ref => !isRef(ref))) {
     return value => check(value, ...refs);

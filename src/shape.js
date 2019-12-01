@@ -1,16 +1,20 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import failure from "./failure";
 import ok from "./ok";
 import errors from "./errors";
 
 export default function shape(checks) {
-  invariant(_.isObjectLike(checks), "expected checks argument to be an object");
+  invariant(
+    _.isObjectLike(checks),
+    failure("shape", "expected `checks` argument to be an object"),
+  );
 
   const keys = _.keys(checks);
 
   invariant(
     _.every(keys, key => _.isFunction(checks[key])),
-    "expected checks argument to contain only functions",
+    failure("shape", "expected `checks` argument to contain only functions"),
   );
 
   return (input, ...parents) => {

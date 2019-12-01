@@ -1,14 +1,18 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import failure from "./failure";
 import ok from "./ok";
 import error from "./error";
 import errors from "./errors";
 
 export default function tuple(checks, lengthMessage) {
-  invariant(_.isArray(checks), "expected checks argument to be an array");
+  invariant(
+    _.isArray(checks),
+    failure("tuple", "expected `checks` argument to be an array"),
+  );
   invariant(
     _.every(checks, _.isFunction),
-    "expected checks argument to contain only functions",
+    failure("tuple", "expected `checks` argument to contain only functions"),
   );
 
   if (lengthMessage === undefined) {

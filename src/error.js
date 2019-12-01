@@ -1,11 +1,19 @@
+import _ from "lodash";
 import invariant from "tiny-invariant";
+import failure from "./failure";
 import errors from "./errors";
 
 export default function error(value, message, path = []) {
-  invariant(Array.isArray(path), "expected path argument to be an array");
+  invariant(
+    _.isArray(path),
+    failure("error", "expected `path` argument to be an array"),
+  );
   invariant(
     arguments.length >= 2,
-    "expected actual and message arguments to be specified",
+    failure(
+      "error",
+      "expected `value` and `message` arguments to be specified",
+    ),
   );
 
   return errors([

@@ -1,5 +1,6 @@
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import failure from "./failure";
 import createSymbol from "./create-symbol";
 import ok from "./ok";
 import errors from "./errors";
@@ -9,11 +10,17 @@ const IS_REF = createSymbol("IS_REF");
 const GET_REF = createSymbol("GET_REF");
 
 export default function ref(path, check = ok, keepErrors = false) {
-  invariant(_.isArray(path), "expected path argument to be an array");
-  invariant(_.isFunction(check), "expected check argument to be a function");
+  invariant(
+    _.isArray(path),
+    failure("ref", "expected `path` argument to be an array"),
+  );
+  invariant(
+    _.isFunction(check),
+    failure("ref", "expected `check` argument to be a function"),
+  );
   invariant(
     _.isBoolean(keepErrors),
-    "expected keepErrors argument to be a boolean",
+    failure("ref", "expected `keepErrors` argument to be a boolean"),
   );
 
   const { parentI, realPath } = processPath(path);
@@ -56,7 +63,10 @@ function processPath(path) {
 
   invariant(
     _.every(realPath, key => key !== up),
-    "expected path argument to contain up keys only at its start",
+    failure(
+      "ref",
+      "expected `path` argument to contain up keys only at its start",
+    ),
   );
 
   return {
