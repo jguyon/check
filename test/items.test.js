@@ -1,7 +1,7 @@
-import { collection, shape, pipe, string, trim, equal, ok } from "../src";
+import { items, shape, pipe, string, trim, equal, ok } from "../src";
 
 test("check succeeds when given value has only valid values", () => {
-  const check = collection(
+  const check = items(
     pipe(
       string(),
       trim(),
@@ -16,7 +16,7 @@ test("check succeeds when given value has only valid values", () => {
 });
 
 test("check succeeds when given value is an empty array", () => {
-  const check = collection(equal("valid"));
+  const check = items(equal("valid"));
   const result = check([]);
 
   expect(result).toEqual({
@@ -26,7 +26,7 @@ test("check succeeds when given value is an empty array", () => {
 });
 
 test("check fails when given value has invalid values", () => {
-  const check = collection(equal("valid", "is invalid"));
+  const check = items(equal("valid", "is invalid"));
   const result = check(["valid", "invalid one", "invalid two"]);
 
   expect(result).toEqual({
@@ -47,7 +47,7 @@ test("check fails when given value has invalid values", () => {
 });
 
 test("correct path is returned with the error", () => {
-  const check = collection(
+  const check = items(
     shape({
       keyOne: shape({
         keyTwo: equal("valid", "is invalid"),
@@ -80,7 +80,7 @@ test("correct path is returned with the error", () => {
 });
 
 test("parents are passed to child check", () => {
-  const check = collection((value, ...parents) => ok(parents));
+  const check = items((value, ...parents) => ok(parents));
   const result = check([1, 2], "one", "two");
 
   expect(result).toEqual({

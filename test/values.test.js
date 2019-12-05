@@ -1,7 +1,7 @@
-import { association, pipe, trim, equal, ok } from "../src";
+import { values, pipe, trim, equal, ok } from "../src";
 
 test("check succeeds when given value has only valid values", () => {
-  const check = association(
+  const check = values(
     pipe(
       trim(),
       equal("valid"),
@@ -22,7 +22,7 @@ test("check succeeds when given value has only valid values", () => {
 });
 
 test("check succeeds when given value is an empty object", () => {
-  const check = association(equal("valid"));
+  const check = values(equal("valid"));
   const result = check({});
 
   expect(result).toEqual({
@@ -32,7 +32,7 @@ test("check succeeds when given value is an empty object", () => {
 });
 
 test("check fails when given value has invalid values", () => {
-  const check = association(equal("valid", "is invalid"));
+  const check = values(equal("valid", "is invalid"));
   const result = check({
     one: "valid",
     two: "invalid two",
@@ -57,9 +57,7 @@ test("check fails when given value has invalid values", () => {
 });
 
 test("correct path is returned with the error", () => {
-  const check = association(
-    association(association(equal("valid", "is invalid"))),
-  );
+  const check = values(values(values(equal("valid", "is invalid"))));
   const result = check({
     one: {
       two: {
@@ -81,7 +79,7 @@ test("correct path is returned with the error", () => {
 });
 
 test("parents are passed to child check", () => {
-  const check = association((value, ...parents) => ok(parents));
+  const check = values((value, ...parents) => ok(parents));
   const result = check({ one: 1, two: 2 }, "one", "two");
 
   expect(result).toEqual({

@@ -1,7 +1,7 @@
-import { toLowerCase } from "../src";
+import { toLower } from "../src";
 
 test("check succeeds with given value in lower case", () => {
-  const check = toLowerCase();
+  const check = toLower();
   const result = check("AbC42");
 
   expect(result).toEqual({

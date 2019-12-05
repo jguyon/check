@@ -1,7 +1,7 @@
-import { trunc } from "../src";
+import { truncate } from "../src";
 
 test("check succeeds with truncated value", () => {
-  const check = trunc();
+  const check = truncate();
 
   for (const [input, output] of [
     [42, 42],

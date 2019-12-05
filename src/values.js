@@ -4,28 +4,30 @@ import failure from "./failure";
 import ok from "./ok";
 import errors from "./errors";
 
-export default function collection(check) {
+export default function values(check) {
   invariant(
     _.isFunction(check),
-    failure("collection", "expected `check` argument to be a function"),
+    failure("association", "expected `check` argument to be a function"),
   );
 
   return (input, ...parents) => {
     let isOk = true;
-    const output = new Array(input.length);
+    const output = {};
     const errs = [];
+    const keys = _.keys(input);
 
-    for (let i = 0; i < input.length; i++) {
-      const result = check(input[i], input, ...parents);
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      const result = check(input[key], input, ...parents);
 
       if (result.isOk) {
-        output[i] = result.value;
+        output[key] = result.value;
       } else {
         isOk = false;
         for (let j = 0; j < result.errors.length; j++) {
           const { path, value, message } = result.errors[j];
           errs.push({
-            path: [i, ...path],
+            path: [key, ...path],
             value,
             message,
           });
