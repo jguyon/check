@@ -23,11 +23,10 @@ export default function items(check) {
       } else {
         isOk = false;
         for (let j = 0; j < result.errors.length; j++) {
-          const { path, value, message } = result.errors[j];
+          const error = result.errors[j];
           errs.push({
-            path: [i, ...path],
-            value,
-            message,
+            ...error,
+            path: [i, ...error.path],
           });
         }
       }

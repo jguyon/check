@@ -31,11 +31,10 @@ export default function shape(checks) {
       } else {
         isOk = false;
         for (let j = 0; j < result.errors.length; j++) {
-          const { path, value, message } = result.errors[j];
+          const error = result.errors[j];
           errs.push({
-            path: [key, ...path],
-            value,
-            message,
+            ...error,
+            path: [key, ...error.path],
           });
         }
       }
