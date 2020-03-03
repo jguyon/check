@@ -9,6 +9,7 @@ export { default as withRefs } from "./withRefs";
 export { default as test } from "./test";
 export { default as transform } from "./transform";
 export { default as pipe } from "./pipe";
+export { default as oneOf } from "./oneOf";
 
 export { default as equal } from "./equal";
 export { default as notEqual } from "./notEqual";
