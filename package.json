@@ -12,6 +12,7 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "rollup -c",
+    "docs": "documentation build -f md -o API.md ./src/index.js",
     "lint": "eslint --ext js .",
     "test": "jest",
     "format": "prettier --write '**/*.{js,json,md}'",
@@ -27,6 +28,7 @@
     "babel-jest": "^24.9.0",
     "babel-plugin-dev-expression": "^0.2.2",
     "babel-plugin-lodash": "^3.3.4",
+    "documentation": "^12.1.4",
     "eslint": "^6.5.0",
     "husky": "^3.0.7",
     "jest": "^24.9.0",
