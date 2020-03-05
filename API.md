@@ -2,9 +2,9 @@
 
 ### Table of Contents
 
-- [ok][1]
-  - [Parameters][2]
-  - [Examples][3]
+-   [ok][1]
+    -   [Parameters][2]
+    -   [Examples][3]
 
 ## ok
 
@@ -12,7 +12,7 @@ Creates a valid result.
 
 ### Parameters
 
-- `value` **any** a valid value
+-   `value` **any** a valid value
 
 ### Examples
 
@@ -23,7 +23,9 @@ C.ok(42); // => { isOk: true, value: 42 }
 Returns **[Object][4]** a valid result wrapping the value.
 
 [1]: #ok
+
 [2]: #parameters
+
 [3]: #examples
-[4]:
-  https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[4]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
