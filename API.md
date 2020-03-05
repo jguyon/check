@@ -28,6 +28,9 @@
 - [object][24]
   - [Parameters][25]
   - [Examples][26]
+- [array][27]
+  - [Parameters][28]
+  - [Examples][29]
 
 ## ok
 
@@ -35,7 +38,7 @@ Creates a valid result.
 
 ### Parameters
 
-- `value` **[any][27]** a valid value
+- `value` **[any][30]** a valid value
 
 ### Examples
 
@@ -43,7 +46,7 @@ Creates a valid result.
 C.ok(42); // => { isOk: true, value: 42 }
 ```
 
-Returns **[Object][28]** a valid result wrapping the value.
+Returns **[Object][31]** a valid result wrapping the value.
 
 ## error
 
@@ -51,9 +54,9 @@ Creates an invalid result with one error.
 
 ### Parameters
 
-- `value` **[any][27]** an invalid value
-- `message` **[any][27]** an error message
-- `path` **[Array][29]** a sequence of keys leading to the invalid value
+- `value` **[any][30]** an invalid value
+- `message` **[any][30]** an error message
+- `path` **[Array][32]** a sequence of keys leading to the invalid value
   (optional, default `[]`)
 
 ### Examples
@@ -62,7 +65,7 @@ Creates an invalid result with one error.
 C.error(43, "is not the answer"); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][28]** an invalid result wrapping the error.
+Returns **[Object][31]** an invalid result wrapping the error.
 
 ## errors
 
@@ -70,7 +73,7 @@ Creates an invalid result with multiple errors.
 
 ### Parameters
 
-- `errors` **[Array][29]** a list of error objects
+- `errors` **[Array][32]** a list of error objects
 
 ### Examples
 
@@ -81,7 +84,7 @@ const result2 = C.error(43, "is greater than the answer");
 C.errors([...result1.errors, ...result2.errors]); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][28]** an invalid result wrapping the errors.
+Returns **[Object][31]** an invalid result wrapping the errors.
 
 ## any
 
@@ -96,7 +99,7 @@ check(42); // => { isOk: true, value: 42 }
 check("forty-two"); // => { isOk: true, value: "forty-two" }
 ```
 
-Returns **[Function][30]** a check function.
+Returns **[Function][33]** a check function.
 
 ## boolean
 
@@ -104,7 +107,7 @@ Creates a check function that fails when the value is not a boolean.
 
 ### Parameters
 
-- `message` **[any][27]** an error message (optional, default
+- `message` **[any][30]** an error message (optional, default
   `"is not a boolean"`)
 
 ### Examples
@@ -116,7 +119,7 @@ check(true); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][30]** a check function.
+Returns **[Function][33]** a check function.
 
 ## number
 
@@ -124,7 +127,7 @@ Creates a check function that fails when the value is not a number.
 
 ### Parameters
 
-- `message` **[any][27]** an error message (optional, default
+- `message` **[any][30]** an error message (optional, default
   `"is not a number"`)
 
 ### Examples
@@ -136,7 +139,7 @@ check(42); // => { isOk: true, ... }
 check("42"); // => { isOk: false, ... }
 ```
 
-Returns **[Function][30]** a check function.
+Returns **[Function][33]** a check function.
 
 ## string
 
@@ -144,7 +147,7 @@ Creates a check function that fails when the value is not a string.
 
 ### Parameters
 
-- `message` **[any][27]** an error message (optional, default
+- `message` **[any][30]** an error message (optional, default
   `"is not a string"`)
 
 ### Examples
@@ -156,7 +159,7 @@ check("forty-two"); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][30]** a check function.
+Returns **[Function][33]** a check function.
 
 ## date
 
@@ -164,7 +167,7 @@ Creates a check function that fails when the value is not a date.
 
 ### Parameters
 
-- `message` **[any][27]** an error message (optional, default `"is not a date"`)
+- `message` **[any][30]** an error message (optional, default `"is not a date"`)
 
 ### Examples
 
@@ -175,7 +178,7 @@ check(new Date()); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][30]** a check function.
+Returns **[Function][33]** a check function.
 
 ## object
 
@@ -183,7 +186,7 @@ Creates a check function that fails when the value is not an object.
 
 ### Parameters
 
-- `message` **[any][27]** an error message (optional, default
+- `message` **[any][30]** an error message (optional, default
   `"is not an object"`)
 
 ### Examples
@@ -195,7 +198,27 @@ check({}); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][30]** a check function.
+Returns **[Function][33]** a check function.
+
+## array
+
+Creates a check function that fails when the value is not an array.
+
+### Parameters
+
+- `message` **[any][30]** an error message (optional, default
+  `"is not an array"`)
+
+### Examples
+
+```javascript
+const check = C.array();
+
+check([]); // => { isOk: true, ... }
+check({}); // => { isOk: false, ... }
+```
+
+Returns **[Function][33]** a check function.
 
 [1]: #ok
 [2]: #parameters
@@ -223,10 +246,13 @@ Returns **[Function][30]** a check function.
 [24]: #object
 [25]: #parameters-7
 [26]: #examples-8
-[27]: #any
-[28]:
+[27]: #array
+[28]: #parameters-8
+[29]: #examples-9
+[30]: #any
+[31]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-[29]:
+[32]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-[30]:
+[33]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
