@@ -1,6 +1,6 @@
 export { default as ok } from "./ok";
-export { default as errors } from "./errors";
 export { default as error } from "./error";
+export { default as errors } from "./errors";
 
 export { default as up } from "./up";
 export { default as ref, isRef } from "./ref";

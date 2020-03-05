@@ -8,6 +8,9 @@
 -   [error][4]
     -   [Parameters][5]
     -   [Examples][6]
+-   [errors][7]
+    -   [Parameters][8]
+    -   [Examples][9]
 
 ## ok
 
@@ -23,17 +26,17 @@ Creates a valid result.
 C.ok(42); // => { isOk: true, value: 42 }
 ```
 
-Returns **[Object][7]** a valid result wrapping the value.
+Returns **[Object][10]** a valid result wrapping the value.
 
 ## error
 
-Creates an invalid result.
+Creates an invalid result with one error.
 
 ### Parameters
 
 -   `value` **any** an invalid value
 -   `message` **any** an error message
--   `path` **[Array][8]** a sequence of keys leading to the invalid value (optional, default `[]`)
+-   `path` **[Array][11]** a sequence of keys leading to the invalid value (optional, default `[]`)
 
 ### Examples
 
@@ -41,7 +44,29 @@ Creates an invalid result.
 C.error(43, "is not the answer"); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][7]** an invalid result wrapping the error.
+Returns **[Object][10]** an invalid result wrapping the error.
+
+## errors
+
+Creates an invalid result with multiple errors.
+
+### Parameters
+
+-   `errors` **[Array][11]** a list of error objects
+
+### Examples
+
+```javascript
+const result1 = C.error(41, "is lesser than the answer");
+const result2 = C.error(43, "is greater than the answer");
+
+C.errors([
+  ...result1.errors,
+  ...result2.errors,
+]); // => { isOk: false, errors: [ ... ] }
+```
+
+Returns **[Object][10]** an invalid result wrapping the errors.
 
 [1]: #ok
 
@@ -55,6 +80,12 @@ Returns **[Object][7]** an invalid result wrapping the error.
 
 [6]: #examples-1
 
-[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[7]: #errors
 
-[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[8]: #parameters-2
+
+[9]: #examples-2
+
+[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[11]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array

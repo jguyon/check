@@ -4,7 +4,7 @@ import failure from "./failure";
 import errors from "./errors";
 
 /**
- * Creates an invalid result.
+ * Creates an invalid result with one error.
  *
  * @param {any} value an invalid value
  * @param {any} message an error message
