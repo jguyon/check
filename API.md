@@ -2,20 +2,20 @@
 
 ### Table of Contents
 
--   [ok][1]
-    -   [Parameters][2]
-    -   [Examples][3]
--   [error][4]
-    -   [Parameters][5]
-    -   [Examples][6]
--   [errors][7]
-    -   [Parameters][8]
-    -   [Examples][9]
--   [any][10]
-    -   [Examples][11]
--   [boolean][12]
-    -   [Parameters][13]
-    -   [Examples][14]
+- [ok][1]
+  - [Parameters][2]
+  - [Examples][3]
+- [error][4]
+  - [Parameters][5]
+  - [Examples][6]
+- [errors][7]
+  - [Parameters][8]
+  - [Examples][9]
+- [any][10]
+  - [Examples][11]
+- [boolean][12]
+  - [Parameters][13]
+  - [Examples][14]
 
 ## ok
 
@@ -23,7 +23,7 @@ Creates a valid result.
 
 ### Parameters
 
--   `value` **[any][15]** a valid value
+- `value` **[any][15]** a valid value
 
 ### Examples
 
@@ -39,9 +39,10 @@ Creates an invalid result with one error.
 
 ### Parameters
 
--   `value` **[any][15]** an invalid value
--   `message` **[any][15]** an error message
--   `path` **[Array][17]** a sequence of keys leading to the invalid value (optional, default `[]`)
+- `value` **[any][15]** an invalid value
+- `message` **[any][15]** an error message
+- `path` **[Array][17]** a sequence of keys leading to the invalid value
+  (optional, default `[]`)
 
 ### Examples
 
@@ -57,7 +58,7 @@ Creates an invalid result with multiple errors.
 
 ### Parameters
 
--   `errors` **[Array][17]** a list of error objects
+- `errors` **[Array][17]** a list of error objects
 
 ### Examples
 
@@ -65,10 +66,7 @@ Creates an invalid result with multiple errors.
 const result1 = C.error(41, "is lesser than the answer");
 const result2 = C.error(43, "is greater than the answer");
 
-C.errors([
-  ...result1.errors,
-  ...result2.errors,
-]); // => { isOk: false, errors: [ ... ] }
+C.errors([...result1.errors, ...result2.errors]); // => { isOk: false, errors: [ ... ] }
 ```
 
 Returns **[Object][16]** an invalid result wrapping the errors.
@@ -94,7 +92,8 @@ Creates a check function that fails when the value is not a boolean.
 
 ### Parameters
 
--   `message` **[any][15]** an error message (optional, default `"is not a boolean"`)
+- `message` **[any][15]** an error message (optional, default
+  `"is not a boolean"`)
 
 ### Examples
 
@@ -108,37 +107,23 @@ check(42); // => { isOk: false, ... }
 Returns **[Function][18]** a check function.
 
 [1]: #ok
-
 [2]: #parameters
-
 [3]: #examples
-
 [4]: #error
-
 [5]: #parameters-1
-
 [6]: #examples-1
-
 [7]: #errors
-
 [8]: #parameters-2
-
 [9]: #examples-2
-
 [10]: #any
-
 [11]: #examples-3
-
 [12]: #boolean
-
 [13]: #parameters-3
-
 [14]: #examples-4
-
 [15]: #any
-
-[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-
-[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[16]:
+  https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[17]:
+  https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[18]:
+  https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
