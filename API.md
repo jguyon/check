@@ -11,6 +11,8 @@
 -   [errors][7]
     -   [Parameters][8]
     -   [Examples][9]
+-   [any][10]
+    -   [Examples][11]
 
 ## ok
 
@@ -18,7 +20,7 @@ Creates a valid result.
 
 ### Parameters
 
--   `value` **any** a valid value
+-   `value` **[any][12]** a valid value
 
 ### Examples
 
@@ -26,7 +28,7 @@ Creates a valid result.
 C.ok(42); // => { isOk: true, value: 42 }
 ```
 
-Returns **[Object][10]** a valid result wrapping the value.
+Returns **[Object][13]** a valid result wrapping the value.
 
 ## error
 
@@ -34,9 +36,9 @@ Creates an invalid result with one error.
 
 ### Parameters
 
--   `value` **any** an invalid value
--   `message` **any** an error message
--   `path` **[Array][11]** a sequence of keys leading to the invalid value (optional, default `[]`)
+-   `value` **[any][12]** an invalid value
+-   `message` **[any][12]** an error message
+-   `path` **[Array][14]** a sequence of keys leading to the invalid value (optional, default `[]`)
 
 ### Examples
 
@@ -44,7 +46,7 @@ Creates an invalid result with one error.
 C.error(43, "is not the answer"); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][10]** an invalid result wrapping the error.
+Returns **[Object][13]** an invalid result wrapping the error.
 
 ## errors
 
@@ -52,7 +54,7 @@ Creates an invalid result with multiple errors.
 
 ### Parameters
 
--   `errors` **[Array][11]** a list of error objects
+-   `errors` **[Array][14]** a list of error objects
 
 ### Examples
 
@@ -66,7 +68,22 @@ C.errors([
 ]); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][10]** an invalid result wrapping the errors.
+Returns **[Object][13]** an invalid result wrapping the errors.
+
+## any
+
+Creates a check function that always succeeds.
+
+### Examples
+
+```javascript
+const check = C.any();
+
+check(42); // => { isOk: true, value: 42 }
+check("forty-two"); // => { isOk: true, value: "forty-two" }
+```
+
+Returns **[Function][15]** a check function.
 
 [1]: #ok
 
@@ -86,6 +103,14 @@ Returns **[Object][10]** an invalid result wrapping the errors.
 
 [9]: #examples-2
 
-[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[10]: #any
 
-[11]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[11]: #examples-3
+
+[12]: #any
+
+[13]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[14]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
