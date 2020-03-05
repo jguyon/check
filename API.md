@@ -5,6 +5,9 @@
 -   [ok][1]
     -   [Parameters][2]
     -   [Examples][3]
+-   [error][4]
+    -   [Parameters][5]
+    -   [Examples][6]
 
 ## ok
 
@@ -20,7 +23,25 @@ Creates a valid result.
 C.ok(42); // => { isOk: true, value: 42 }
 ```
 
-Returns **[Object][4]** a valid result wrapping the value.
+Returns **[Object][7]** a valid result wrapping the value.
+
+## error
+
+Creates an invalid result.
+
+### Parameters
+
+-   `value` **any** an invalid value
+-   `message` **any** an error message
+-   `path` **[Array][8]** a sequence of keys leading to the invalid value (optional, default `[]`)
+
+### Examples
+
+```javascript
+C.error(43, "is not the answer"); // => { isOk: false, errors: [ ... ] }
+```
+
+Returns **[Object][7]** an invalid result wrapping the error.
 
 [1]: #ok
 
@@ -28,4 +49,12 @@ Returns **[Object][4]** a valid result wrapping the value.
 
 [3]: #examples
 
-[4]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[4]: #error
+
+[5]: #parameters-1
+
+[6]: #examples-1
+
+[7]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array

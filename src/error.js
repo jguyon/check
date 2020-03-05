@@ -3,6 +3,17 @@ import invariant from "tiny-invariant";
 import failure from "./failure";
 import errors from "./errors";
 
+/**
+ * Creates an invalid result.
+ *
+ * @param {any} value an invalid value
+ * @param {any} message an error message
+ * @param {Array} [path=[]] a sequence of keys leading to the invalid value
+ * @returns {Object} an invalid result wrapping the error.
+ *
+ * @example
+ * C.error(43, "is not the answer"); // => { isOk: false, errors: [ ... ] }
+ */
 export default function error(value, message, path = []) {
   invariant(
     _.isArray(path),
