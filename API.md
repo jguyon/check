@@ -22,6 +22,9 @@
 - [string][18]
   - [Parameters][19]
   - [Examples][20]
+- [date][21]
+  - [Parameters][22]
+  - [Examples][23]
 
 ## ok
 
@@ -29,7 +32,7 @@ Creates a valid result.
 
 ### Parameters
 
-- `value` **[any][21]** a valid value
+- `value` **[any][24]** a valid value
 
 ### Examples
 
@@ -37,7 +40,7 @@ Creates a valid result.
 C.ok(42); // => { isOk: true, value: 42 }
 ```
 
-Returns **[Object][22]** a valid result wrapping the value.
+Returns **[Object][25]** a valid result wrapping the value.
 
 ## error
 
@@ -45,9 +48,9 @@ Creates an invalid result with one error.
 
 ### Parameters
 
-- `value` **[any][21]** an invalid value
-- `message` **[any][21]** an error message
-- `path` **[Array][23]** a sequence of keys leading to the invalid value
+- `value` **[any][24]** an invalid value
+- `message` **[any][24]** an error message
+- `path` **[Array][26]** a sequence of keys leading to the invalid value
   (optional, default `[]`)
 
 ### Examples
@@ -56,7 +59,7 @@ Creates an invalid result with one error.
 C.error(43, "is not the answer"); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][22]** an invalid result wrapping the error.
+Returns **[Object][25]** an invalid result wrapping the error.
 
 ## errors
 
@@ -64,7 +67,7 @@ Creates an invalid result with multiple errors.
 
 ### Parameters
 
-- `errors` **[Array][23]** a list of error objects
+- `errors` **[Array][26]** a list of error objects
 
 ### Examples
 
@@ -75,7 +78,7 @@ const result2 = C.error(43, "is greater than the answer");
 C.errors([...result1.errors, ...result2.errors]); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][22]** an invalid result wrapping the errors.
+Returns **[Object][25]** an invalid result wrapping the errors.
 
 ## any
 
@@ -90,7 +93,7 @@ check(42); // => { isOk: true, value: 42 }
 check("forty-two"); // => { isOk: true, value: "forty-two" }
 ```
 
-Returns **[Function][24]** a check function.
+Returns **[Function][27]** a check function.
 
 ## boolean
 
@@ -98,7 +101,7 @@ Creates a check function that fails when the value is not a boolean.
 
 ### Parameters
 
-- `message` **[any][21]** an error message (optional, default
+- `message` **[any][24]** an error message (optional, default
   `"is not a boolean"`)
 
 ### Examples
@@ -110,7 +113,7 @@ check(true); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][24]** a check function.
+Returns **[Function][27]** a check function.
 
 ## number
 
@@ -118,7 +121,7 @@ Creates a check function that fails when the value is not a number.
 
 ### Parameters
 
-- `message` **[any][21]** an error message (optional, default
+- `message` **[any][24]** an error message (optional, default
   `"is not a number"`)
 
 ### Examples
@@ -130,7 +133,7 @@ check(42); // => { isOk: true, ... }
 check("42"); // => { isOk: false, ... }
 ```
 
-Returns **[Function][24]** a check function.
+Returns **[Function][27]** a check function.
 
 ## string
 
@@ -138,7 +141,7 @@ Creates a check function that fails when the value is not a string.
 
 ### Parameters
 
-- `message` **[any][21]** an error message (optional, default
+- `message` **[any][24]** an error message (optional, default
   `"is not a string"`)
 
 ### Examples
@@ -150,7 +153,26 @@ check("forty-two"); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][24]** a check function.
+Returns **[Function][27]** a check function.
+
+## date
+
+Creates a check function that fails when the value is not a date.
+
+### Parameters
+
+- `message` **[any][24]** an error message (optional, default `"is not a date"`)
+
+### Examples
+
+```javascript
+const check = C.date();
+
+check(new Date()); // => { isOk: true, ... }
+check(42); // => { isOk: false, ... }
+```
+
+Returns **[Function][27]** a check function.
 
 [1]: #ok
 [2]: #parameters
@@ -172,10 +194,13 @@ Returns **[Function][24]** a check function.
 [18]: #string
 [19]: #parameters-5
 [20]: #examples-6
-[21]: #any
-[22]:
+[21]: #date
+[22]: #parameters-6
+[23]: #examples-7
+[24]: #any
+[25]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-[23]:
+[26]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-[24]:
+[27]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
