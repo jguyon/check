@@ -4,7 +4,7 @@ import test from "./test";
 /**
  * Creates a check function that fails when the value is not a string.
  *
- * @param {any} [message="is not a string"] an error message
+ * @param {any} message an error message
  * @returns {Function} a check function.
  *
  * @example

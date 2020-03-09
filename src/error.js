@@ -8,7 +8,7 @@ import errors from "./errors";
  *
  * @param {any} value an invalid value
  * @param {any} message an error message
- * @param {Array} [path=[]] a sequence of keys leading to the invalid value
+ * @param {Array} path a sequence of keys leading to the invalid value
  * @returns {Object} an invalid result wrapping the error.
  *
  * @example
