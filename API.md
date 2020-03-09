@@ -234,7 +234,7 @@ Creates a check function that converts a value of any type into a boolean.
 const check = C.toBoolean();
 
 check(1); // => { isOk: true, value: true }
-check(0); // => { isOk: false, value: false }
+check(0); // => { isOk: true, value: false }
 ```
 
 Returns **[Function][37]** a check function.

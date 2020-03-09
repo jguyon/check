@@ -9,7 +9,7 @@ import transform from "./transform";
  * const check = C.toBoolean();
  *
  * check(1); // => { isOk: true, value: true }
- * check(0); // => { isOk: false, value: false }
+ * check(0); // => { isOk: true, value: false }
  */
 export default function toBoolean() {
   return transform(value => Boolean(value));
