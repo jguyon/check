@@ -28,6 +28,10 @@ export default function parseIntCheck(
     _.isInteger(radix),
     failure("parseInt", "expected `radix` argument to be a valid integer"),
   );
+  invariant(
+    radix >= 2 && radix <= 36,
+    failure("parseInt", "expected `radix` argument to be between 2 and 36"),
+  );
 
   return value => {
     const number = parseInt(value, radix);
