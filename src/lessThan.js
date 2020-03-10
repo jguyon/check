@@ -14,5 +14,8 @@ export default function lessThan(max, message = "is too high") {
     ),
   );
 
-  return withRefs([max], test((value, max) => value < max, message));
+  return withRefs(
+    [max],
+    test((value, max) => value < max, message),
+  );
 }

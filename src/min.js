@@ -11,5 +11,8 @@ export default function min(min, message = "is too low") {
     failure("min", "expected `min` argument to be a valid number or a ref"),
   );
 
-  return withRefs([min], test((value, min) => value >= min, message));
+  return withRefs(
+    [min],
+    test((value, min) => value >= min, message),
+  );
 }

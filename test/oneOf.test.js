@@ -12,14 +12,8 @@ import {
 test("check succeeds when at least one check succeeds", () => {
   const check = oneOf(
     number(),
-    pipe(
-      string(),
-      toLower(),
-    ),
-    pipe(
-      string(),
-      toUpper(),
-    ),
+    pipe(string(), toLower()),
+    pipe(string(), toUpper()),
   );
   const result = check("Jerome");
 
@@ -47,14 +41,8 @@ test("check fails with error from last check", () => {
 
 test("parents are passed to checks", () => {
   const check = oneOf(
-    pipe(
-      string(),
-      (value, ...parents) => ok(parents),
-    ),
-    pipe(
-      number(),
-      (value, ...parents) => ok(parents),
-    ),
+    pipe(string(), (value, ...parents) => ok(parents)),
+    pipe(number(), (value, ...parents) => ok(parents)),
   );
   const resultOne = check("jerome", "parent1", "parent2");
   const resultTwo = check(42, "parent1", "parent2");

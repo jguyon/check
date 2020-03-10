@@ -1,12 +1,7 @@
 import { values, pipe, trim, equal, ok } from "../src";
 
 test("check succeeds when given value has only valid values", () => {
-  const check = values(
-    pipe(
-      trim(),
-      equal("valid"),
-    ),
-  );
+  const check = values(pipe(trim(), equal("valid")));
   const result = check({
     one: "valid",
     two: "  valid    ",

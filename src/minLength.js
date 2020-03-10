@@ -14,5 +14,8 @@ export default function minLength(min, message = "is too short") {
     ),
   );
 
-  return withRefs([min], test((value, min) => value.length >= min, message));
+  return withRefs(
+    [min],
+    test((value, min) => value.length >= min, message),
+  );
 }

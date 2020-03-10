@@ -1,12 +1,7 @@
 import { items, shape, pipe, string, trim, equal, ok } from "../src";
 
 test("check succeeds when given value has only valid values", () => {
-  const check = items(
-    pipe(
-      string(),
-      trim(),
-    ),
-  );
+  const check = items(pipe(string(), trim()));
   const result = check(["one", "  two    "]);
 
   expect(result).toEqual({
@@ -85,6 +80,9 @@ test("parents are passed to child check", () => {
 
   expect(result).toEqual({
     isOk: true,
-    value: [[[1, 2], "one", "two"], [[1, 2], "one", "two"]],
+    value: [
+      [[1, 2], "one", "two"],
+      [[1, 2], "one", "two"],
+    ],
   });
 });

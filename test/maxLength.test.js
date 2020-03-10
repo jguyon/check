@@ -3,7 +3,10 @@ import { maxLength, ref } from "../src";
 test("check succeeds when given value is short enough", () => {
   const check = maxLength(4);
 
-  for (const value of [[1, 2, 3], [1, 2, 3, 4]]) {
+  for (const value of [
+    [1, 2, 3],
+    [1, 2, 3, 4],
+  ]) {
     const result = check(value);
 
     expect(result).toEqual({

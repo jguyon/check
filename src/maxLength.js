@@ -14,5 +14,8 @@ export default function maxLength(max, message = "is too long") {
     ),
   );
 
-  return withRefs([max], test((value, max) => value.length <= max, message));
+  return withRefs(
+    [max],
+    test((value, max) => value.length <= max, message),
+  );
 }

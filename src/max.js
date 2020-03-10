@@ -11,5 +11,8 @@ export default function max(max, message = "is too high") {
     failure("max", "expected `max` argument to be a valid number or a ref"),
   );
 
-  return withRefs([max], test((value, max) => value <= max, message));
+  return withRefs(
+    [max],
+    test((value, max) => value <= max, message),
+  );
 }

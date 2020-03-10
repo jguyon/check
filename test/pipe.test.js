@@ -1,11 +1,7 @@
 import { pipe, string, trim, minLength, pattern, ok } from "../src";
 
 test("check succeeds when all given checks succeed", () => {
-  const check = pipe(
-    string(),
-    trim(),
-    minLength(4),
-  );
+  const check = pipe(string(), trim(), minLength(4));
   const result = check("  jerome   ");
 
   expect(result).toEqual({
@@ -25,12 +21,7 @@ test("check succeeds when no checks are given", () => {
 });
 
 test("check fails with error from first failing check", () => {
-  const check = pipe(
-    string(),
-    trim(),
-    minLength(8),
-    pattern(/^[A-Z]/),
-  );
+  const check = pipe(string(), trim(), minLength(8), pattern(/^[A-Z]/));
   const result = check("     jerome           ");
 
   expect(result).toEqual({

@@ -2,14 +2,8 @@ import { shape, pipe, trim, equal, ok } from "../src";
 
 test("check succeeds when given value has the right shape", () => {
   const check = shape({
-    one: pipe(
-      trim(),
-      equal("value one"),
-    ),
-    two: pipe(
-      trim(),
-      equal("value two"),
-    ),
+    one: pipe(trim(), equal("value one")),
+    two: pipe(trim(), equal("value two")),
   });
   const result = check({
     one: "  value one   ",

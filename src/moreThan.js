@@ -14,5 +14,8 @@ export default function moreThan(min, message = "is too low") {
     ),
   );
 
-  return withRefs([min], test((value, min) => value > min, message));
+  return withRefs(
+    [min],
+    test((value, min) => value > min, message),
+  );
 }
