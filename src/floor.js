@@ -2,8 +2,7 @@ import _ from "lodash";
 import transform from "./transform";
 
 /**
- * Creates a check function that transforms a number into the largest integer
- * less than or equal to it.
+ * Creates a check function that rounds a number down to the previous integer.
  *
  * @returns {Function} a check function.
  *

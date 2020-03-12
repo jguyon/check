@@ -2,8 +2,7 @@ import _ from "lodash";
 import transform from "./transform";
 
 /**
- * Creates a check function that transforms a number into the smallest integer
- * greater than or equal to it.
+ * Creates a check function that rounds a number up to the next integer.
  *
  * @returns {Function} a check function.
  *

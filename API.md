@@ -346,8 +346,7 @@ Returns **[Function][53]** a check function.
 
 ## floor
 
-Creates a check function that transforms a number into the largest integer less
-than or equal to it.
+Creates a check function that rounds a number down to the previous integer.
 
 ### Examples
 
@@ -362,8 +361,7 @@ Returns **[Function][53]** a check function.
 
 ## ceil
 
-Creates a check function that transforms a number into the smallest integer
-greater than or equal to it.
+Creates a check function that rounds a number up to the next integer.
 
 ### Examples
 
