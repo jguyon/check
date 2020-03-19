@@ -4,9 +4,10 @@ import failure from "./failure";
 import ok from "./ok";
 
 /**
- * Creates a check that transforms a value into another.
+ * Creates a check function that transforms a value into another.
  *
- * All arguments passed to the check are passed to the transform function.
+ * All arguments passed to the check function are passed to the transform
+ * function.
  *
  * @param {Function} transform a function transforming a value into another
  * @returns {Function} a check function.

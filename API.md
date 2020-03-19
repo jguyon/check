@@ -134,9 +134,9 @@ Returns **[Object][77]** an invalid result wrapping the errors.
 
 ## test
 
-Creates a check that fails if a given predicate fails.
+Creates a check function that fails if a given predicate fails.
 
-All arguments passed to the check are passed to the predicate function.
+All arguments passed to the check function are passed to the predicate function.
 
 ### Parameters
 
@@ -156,9 +156,9 @@ Returns **[Function][79]** a check function.
 
 ## transform
 
-Creates a check that transforms a value into another.
+Creates a check function that transforms a value into another.
 
-All arguments passed to the check are passed to the transform function.
+All arguments passed to the check function are passed to the transform function.
 
 ### Parameters
 

@@ -5,9 +5,10 @@ import ok from "./ok";
 import error from "./error";
 
 /**
- * Creates a check that fails if a given predicate fails.
+ * Creates a check function that fails if a given predicate fails.
  *
- * All arguments passed to the check are passed to the predicate function.
+ * All arguments passed to the check function are passed to the predicate
+ * function.
  *
  * @param {Function} predicate a function returning a boolean
  * @param {any} message an error message
