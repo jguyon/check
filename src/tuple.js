@@ -5,6 +5,25 @@ import ok from "./ok";
 import error from "./error";
 import errors from "./errors";
 
+/**
+ * Creates a check that runs different check functions at given positions of an
+ * array.
+ *
+ * @param {Array} checks an array of check functions
+ * @param {any} lengthMessage an error message returned if the value does not
+ * have the right length
+ * @returns {Function} a check function.
+ *
+ * @example
+ * const check = C.tuple([
+ *   C.number(),
+ *   C.string(),
+ * ]);
+ *
+ * check([42, "jerome"]); // => { isOk: true, ... }
+ * check(["forty-two", "jerome"]); // => { isOk: false, ... }
+ * check([42]); // => { isOk: false, ... }
+ */
 export default function tuple(checks, lengthMessage) {
   invariant(
     _.isArray(checks),
