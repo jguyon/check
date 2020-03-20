@@ -4,6 +4,28 @@ import failure from "./failure";
 import ok from "./ok";
 import errors from "./errors";
 
+/**
+ * Creates a check function that will run different check functions on given
+ * properties of an object.
+ *
+ * @param {Object} checks an object containing check functions
+ * @returns {Function} a check function.
+ *
+ * @example
+ * const check = C.shape({
+ *   name: C.string(),
+ *   age: C.number(),
+ * });
+ *
+ * check({
+ *   name: "jerome",
+ *   age: 42,
+ * }); // => { isOk: true, ... }
+ * check({
+ *   name: "jerome",
+ *   age: "forty-two",
+ * }); // => { isOk: false, ... }
+ */
 export default function shape(checks) {
   invariant(
     _.isObjectLike(checks),
