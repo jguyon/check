@@ -27,81 +27,84 @@
 - [equal][23]
   - [Parameters][24]
   - [Examples][25]
-- [required][26]
+- [notEqual][26]
   - [Parameters][27]
   - [Examples][28]
-- [optional][29]
+- [required][29]
   - [Parameters][30]
   - [Examples][31]
-- [any][32]
-  - [Examples][33]
-- [boolean][34]
-  - [Parameters][35]
+- [optional][32]
+  - [Parameters][33]
+  - [Examples][34]
+- [any][35]
   - [Examples][36]
-- [number][37]
+- [boolean][37]
   - [Parameters][38]
   - [Examples][39]
-- [string][40]
+- [number][40]
   - [Parameters][41]
   - [Examples][42]
-- [date][43]
+- [string][43]
   - [Parameters][44]
   - [Examples][45]
-- [object][46]
+- [date][46]
   - [Parameters][47]
   - [Examples][48]
-- [array][49]
+- [object][49]
   - [Parameters][50]
   - [Examples][51]
-- [toBoolean][52]
-  - [Examples][53]
-- [toNumber][54]
-  - [Examples][55]
-- [parseInt][56]
-  - [Parameters][57]
+- [array][52]
+  - [Parameters][53]
+  - [Examples][54]
+- [toBoolean][55]
+  - [Examples][56]
+- [toNumber][57]
   - [Examples][58]
-- [parseFloat][59]
+- [parseInt][59]
   - [Parameters][60]
   - [Examples][61]
-- [toString][62]
-  - [Examples][63]
-- [toDate][64]
-  - [Examples][65]
-- [floor][66]
-  - [Examples][67]
-- [ceil][68]
-  - [Examples][69]
-- [round][70]
-  - [Examples][71]
-- [truncate][72]
-  - [Examples][73]
-- [integer][74]
-  - [Parameters][75]
+- [parseFloat][62]
+  - [Parameters][63]
+  - [Examples][64]
+- [toString][65]
+  - [Examples][66]
+- [toDate][67]
+  - [Examples][68]
+- [floor][69]
+  - [Examples][70]
+- [ceil][71]
+  - [Examples][72]
+- [round][73]
+  - [Examples][74]
+- [truncate][75]
   - [Examples][76]
-- [finite][77]
+- [integer][77]
   - [Parameters][78]
   - [Examples][79]
-- [trim][80]
-  - [Examples][81]
-- [toLower][82]
-  - [Examples][83]
-- [toUpper][84]
-  - [Examples][85]
-- [pattern][86]
-  - [Parameters][87]
+- [finite][80]
+  - [Parameters][81]
+  - [Examples][82]
+- [trim][83]
+  - [Examples][84]
+- [toLower][85]
+  - [Examples][86]
+- [toUpper][87]
   - [Examples][88]
-- [shape][89]
+- [pattern][89]
   - [Parameters][90]
   - [Examples][91]
-- [values][92]
+- [shape][92]
   - [Parameters][93]
   - [Examples][94]
-- [items][95]
+- [values][95]
   - [Parameters][96]
   - [Examples][97]
-- [tuple][98]
+- [items][98]
   - [Parameters][99]
   - [Examples][100]
+- [tuple][101]
+  - [Parameters][102]
+  - [Examples][103]
 
 ## ok
 
@@ -109,7 +112,7 @@ Creates a valid result.
 
 ### Parameters
 
-- `value` **[any][101]** a valid value
+- `value` **[any][104]** a valid value
 
 ### Examples
 
@@ -117,7 +120,7 @@ Creates a valid result.
 C.ok(42); // => { isOk: true, value: 42 }
 ```
 
-Returns **[Object][102]** a valid result wrapping the value.
+Returns **[Object][105]** a valid result wrapping the value.
 
 ## error
 
@@ -125,9 +128,9 @@ Creates an invalid result with one error.
 
 ### Parameters
 
-- `value` **[any][101]** an invalid value
-- `message` **[any][101]** an error message
-- `path` **[Array][103]** a sequence of keys leading to the invalid value
+- `value` **[any][104]** an invalid value
+- `message` **[any][104]** an error message
+- `path` **[Array][106]** a sequence of keys leading to the invalid value
   (optional, default `[]`)
 
 ### Examples
@@ -136,7 +139,7 @@ Creates an invalid result with one error.
 C.error(43, "is not the answer"); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][102]** an invalid result wrapping the error.
+Returns **[Object][105]** an invalid result wrapping the error.
 
 ## errors
 
@@ -144,7 +147,7 @@ Creates an invalid result with multiple errors.
 
 ### Parameters
 
-- `errors` **[Array][103]** a list of error objects
+- `errors` **[Array][106]** a list of error objects
 
 ### Examples
 
@@ -155,13 +158,13 @@ const result2 = C.error(43, "is greater than the answer");
 C.errors([...result1.errors, ...result2.errors]); // => { isOk: false, errors: [ ... ] }
 ```
 
-Returns **[Object][102]** an invalid result wrapping the errors.
+Returns **[Object][105]** an invalid result wrapping the errors.
 
 ## Ref
 
 A reference to a value present at a particular path in the parent tree.
 
-Type: [Object][102]
+Type: [Object][105]
 
 ## test
 
@@ -171,8 +174,8 @@ All arguments passed to the check function are passed to the predicate function.
 
 ### Parameters
 
-- `predicate` **[Function][104]** a function returning a boolean
-- `message` **[any][101]** an error message (optional, default `"is invalid"`)
+- `predicate` **[Function][107]** a function returning a boolean
+- `message` **[any][104]** an error message (optional, default `"is invalid"`)
 
 ### Examples
 
@@ -183,7 +186,7 @@ check(42); // => { isOk: true, ... }
 check(43); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## transform
 
@@ -193,7 +196,7 @@ All arguments passed to the check function are passed to the transform function.
 
 ### Parameters
 
-- `transform` **[Function][104]** a function transforming a value into another
+- `transform` **[Function][107]** a function transforming a value into another
 
 ### Examples
 
@@ -203,7 +206,7 @@ const check = C.transform(value => value / 2);
 check(42); // => { isOk: true, value 21 }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## pipe
 
@@ -216,7 +219,7 @@ passed to the child check functions.
 
 ### Parameters
 
-- `checks` **...[Function][104]** check functions to chain
+- `checks` **...[Function][107]** check functions to chain
 
 ### Examples
 
@@ -231,7 +234,7 @@ check(25); // => { isOk: true, value: 50 }
 check(50); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## oneOf
 
@@ -245,7 +248,7 @@ passed to the child check functions.
 
 ### Parameters
 
-- `checks` **...[Function][104]** check functions
+- `checks` **...[Function][107]** check functions
 
 ### Examples
 
@@ -257,7 +260,7 @@ check("jerome"); // => { isOk: true, ... }
 check(true); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## equal
 
@@ -265,8 +268,8 @@ Creates a check that fails if a value is not equal to another.
 
 ### Parameters
 
-- `value` **([any][101] \| [Ref][105])** a value to check equality against
-- `message` **[any][101]** an error message (optional, default `"is invalid"`)
+- `value` **([any][104] \| [Ref][108])** a value to check equality against
+- `message` **[any][104]** an error message (optional, default `"is invalid"`)
 
 ### Examples
 
@@ -277,7 +280,27 @@ check(42); // => { isOk: true, ... }
 check(43); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
+
+## notEqual
+
+Creates a check that fails if a value is equal to another.
+
+### Parameters
+
+- `value` **([any][104] \| [Ref][108])** a value to check equality against
+- `message` **[any][104]** an error message (optional, default `"is invalid"`)
+
+### Examples
+
+```javascript
+const check = C.notEqual(42);
+
+check(43); // => { isOk: true, ... }
+check(42); // => { isOk: false, ... }
+```
+
+Returns **[Function][107]** a check function.
 
 ## required
 
@@ -285,7 +308,7 @@ Creates a check function that fails if a value is null or undefined.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default `"is required"`)
+- `message` **[any][104]** an error message (optional, default `"is required"`)
 
 ### Examples
 
@@ -297,7 +320,7 @@ check(null); // => { isOk: false, ... }
 check(undefined); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## optional
 
@@ -306,7 +329,7 @@ given check function succeeds.
 
 ### Parameters
 
-- `check` **[Function][104]** a check function
+- `check` **[Function][107]** a check function
 
 ### Examples
 
@@ -319,7 +342,7 @@ check(42); // => { isOk: true, value: 42 }
 check("jerome"); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## any
 
@@ -334,7 +357,7 @@ check(42); // => { isOk: true, value: 42 }
 check("forty-two"); // => { isOk: true, value: "forty-two" }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## boolean
 
@@ -342,7 +365,7 @@ Creates a check function that fails when the value is not a boolean.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default
+- `message` **[any][104]** an error message (optional, default
   `"is not a boolean"`)
 
 ### Examples
@@ -354,7 +377,7 @@ check(true); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## number
 
@@ -362,7 +385,7 @@ Creates a check function that fails when the value is not a number.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default
+- `message` **[any][104]** an error message (optional, default
   `"is not a number"`)
 
 ### Examples
@@ -374,7 +397,7 @@ check(42); // => { isOk: true, ... }
 check("42"); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## string
 
@@ -382,7 +405,7 @@ Creates a check function that fails when the value is not a string.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default
+- `message` **[any][104]** an error message (optional, default
   `"is not a string"`)
 
 ### Examples
@@ -394,7 +417,7 @@ check("forty-two"); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## date
 
@@ -402,7 +425,7 @@ Creates a check function that fails when the value is not a date.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default
+- `message` **[any][104]** an error message (optional, default
   `"is not a date"`)
 
 ### Examples
@@ -414,7 +437,7 @@ check(new Date()); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## object
 
@@ -422,7 +445,7 @@ Creates a check function that fails when the value is not an object.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default
+- `message` **[any][104]** an error message (optional, default
   `"is not an object"`)
 
 ### Examples
@@ -434,7 +457,7 @@ check({}); // => { isOk: true, ... }
 check(42); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## array
 
@@ -442,7 +465,7 @@ Creates a check function that fails when the value is not an array.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default
+- `message` **[any][104]** an error message (optional, default
   `"is not an array"`)
 
 ### Examples
@@ -454,7 +477,7 @@ check([]); // => { isOk: true, ... }
 check({}); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## toBoolean
 
@@ -469,7 +492,7 @@ check(1); // => { isOk: true, value: true }
 check(0); // => { isOk: true, value: false }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## toNumber
 
@@ -484,7 +507,7 @@ check("42"); // => { isOk: true, value: 42 }
 check(true); // => { isOk: true, value: 1 }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## parseInt
 
@@ -492,9 +515,9 @@ Creates a check function that tries to parse a string into an integer.
 
 ### Parameters
 
-- `radix` **[number][106]** an integer representing the base used to parse the
+- `radix` **[number][109]** an integer representing the base used to parse the
   number
-- `message` **[any][101]** an error message used when the string could not be
+- `message` **[any][104]** an error message used when the string could not be
   parsed
 
 ### Examples
@@ -506,7 +529,7 @@ check("123"); // => { isOk: true, value: 123 }
 check("abc"); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## parseFloat
 
@@ -515,7 +538,7 @@ number.
 
 ### Parameters
 
-- `message` **[any][101]** an error message used when the string could not be
+- `message` **[any][104]** an error message used when the string could not be
   parsed
 
 ### Examples
@@ -527,7 +550,7 @@ check("3.14"); // => { isOk: true, value: 3.14 }
 check("abc"); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## toString
 
@@ -543,7 +566,7 @@ check(true); // => { isOk: true, value: "true" }
 check(null); // => { isOk: true, value: "" }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## toDate
 
@@ -558,7 +581,7 @@ check("2020-09-03"); // => { isOk: true, value: Date(...) }
 check(1583749507431); // => { isOk: true, value: Date(...) }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## floor
 
@@ -573,7 +596,7 @@ check(3.14); // => { isOk: true, value: 3 }
 check(3); // => { isOk: true, value: 3 }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## ceil
 
@@ -588,7 +611,7 @@ check(3.14); // => { isOk: true, value: 4 }
 check(3); // => { isOk: true, value: 3 }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## round
 
@@ -603,7 +626,7 @@ check(3.14); // => { isOk: true, value: 3 }
 check(3.86); // => { isOk: true, value: 4 }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## truncate
 
@@ -618,7 +641,7 @@ check(3.14); // => { isOk: true, value: 3 }
 check(-3.14); // => { isOk: true, value: -3 }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## integer
 
@@ -626,7 +649,7 @@ Creates a check function that fails when the value is not an integer.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default
+- `message` **[any][104]** an error message (optional, default
   `"is not an integer"`)
 
 ### Examples
@@ -638,7 +661,7 @@ check(42); // => { isOk: true, ... }
 check(3.14); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## finite
 
@@ -646,7 +669,7 @@ Creates a check function that fails when the value is not a finite number.
 
 ### Parameters
 
-- `message` **[any][101]** an error message (optional, default
+- `message` **[any][104]** an error message (optional, default
   `"is not a finite number"`)
 
 ### Examples
@@ -659,7 +682,7 @@ check(Infinity); // => { isOk: false, ... }
 check(NaN); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## trim
 
@@ -673,7 +696,7 @@ const check = C.trim();
 check("  jerome   "); // => { isOk: true, value: "jerome" }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## toLower
 
@@ -687,7 +710,7 @@ const check = C.toLower();
 check("JEROME"); // => { isOk: true, value: "jerome" }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## toUpper
 
@@ -701,7 +724,7 @@ const check = C.toUpper();
 check("jerome"); // => { isOk: true, value: "JEROME" }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## pattern
 
@@ -710,8 +733,8 @@ expression.
 
 ### Parameters
 
-- `regexp` **[RegExp][107]** a regular expression to test against
-- `message` **[any][101]** an error message (optional, default `"is invalid"`)
+- `regexp` **[RegExp][110]** a regular expression to test against
+- `message` **[any][104]** an error message (optional, default `"is invalid"`)
 
 ### Examples
 
@@ -722,7 +745,7 @@ check("jerome"); // => { isOk: true, ... }
 check("42"); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## shape
 
@@ -731,7 +754,7 @@ properties of an object.
 
 ### Parameters
 
-- `checks` **[Object][102]** an object containing check functions
+- `checks` **[Object][105]** an object containing check functions
 
 ### Examples
 
@@ -751,7 +774,7 @@ check({
 }); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## values
 
@@ -760,7 +783,7 @@ values of an object.
 
 ### Parameters
 
-- `check` **[Function][104]** a check function
+- `check` **[Function][107]** a check function
 
 ### Examples
 
@@ -776,7 +799,7 @@ check({
 }); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## items
 
@@ -785,7 +808,7 @@ of an array.
 
 ### Parameters
 
-- `check` **[Function][104]** a check function
+- `check` **[Function][107]** a check function
 
 ### Examples
 
@@ -796,7 +819,7 @@ check([42, 43]); // => { isOk: true, ... }
 check(["forty-two"]); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 ## tuple
 
@@ -805,8 +828,8 @@ array.
 
 ### Parameters
 
-- `checks` **[Array][103]** an array of check functions
-- `lengthMessage` **[any][101]** an error message returned if the value does not
+- `checks` **[Array][106]** an array of check functions
+- `lengthMessage` **[any][104]** an error message returned if the value does not
   have the right length
 
 ### Examples
@@ -819,7 +842,7 @@ check(["forty-two", "jerome"]); // => { isOk: false, ... }
 check([42]); // => { isOk: false, ... }
 ```
 
-Returns **[Function][104]** a check function.
+Returns **[Function][107]** a check function.
 
 [1]: #ok
 [2]: #parameters
@@ -846,89 +869,92 @@ Returns **[Function][104]** a check function.
 [23]: #equal
 [24]: #parameters-7
 [25]: #examples-7
-[26]: #required
+[26]: #notequal
 [27]: #parameters-8
 [28]: #examples-8
-[29]: #optional
+[29]: #required
 [30]: #parameters-9
 [31]: #examples-9
-[32]: #any
-[33]: #examples-10
-[34]: #boolean
-[35]: #parameters-10
+[32]: #optional
+[33]: #parameters-10
+[34]: #examples-10
+[35]: #any
 [36]: #examples-11
-[37]: #number
+[37]: #boolean
 [38]: #parameters-11
 [39]: #examples-12
-[40]: #string
+[40]: #number
 [41]: #parameters-12
 [42]: #examples-13
-[43]: #date
+[43]: #string
 [44]: #parameters-13
 [45]: #examples-14
-[46]: #object
+[46]: #date
 [47]: #parameters-14
 [48]: #examples-15
-[49]: #array
+[49]: #object
 [50]: #parameters-15
 [51]: #examples-16
-[52]: #toboolean
-[53]: #examples-17
-[54]: #tonumber
-[55]: #examples-18
-[56]: #parseint
-[57]: #parameters-16
+[52]: #array
+[53]: #parameters-16
+[54]: #examples-17
+[55]: #toboolean
+[56]: #examples-18
+[57]: #tonumber
 [58]: #examples-19
-[59]: #parsefloat
+[59]: #parseint
 [60]: #parameters-17
 [61]: #examples-20
-[62]: #tostring
-[63]: #examples-21
-[64]: #todate
-[65]: #examples-22
-[66]: #floor
-[67]: #examples-23
-[68]: #ceil
-[69]: #examples-24
-[70]: #round
-[71]: #examples-25
-[72]: #truncate
-[73]: #examples-26
-[74]: #integer
-[75]: #parameters-18
+[62]: #parsefloat
+[63]: #parameters-18
+[64]: #examples-21
+[65]: #tostring
+[66]: #examples-22
+[67]: #todate
+[68]: #examples-23
+[69]: #floor
+[70]: #examples-24
+[71]: #ceil
+[72]: #examples-25
+[73]: #round
+[74]: #examples-26
+[75]: #truncate
 [76]: #examples-27
-[77]: #finite
+[77]: #integer
 [78]: #parameters-19
 [79]: #examples-28
-[80]: #trim
-[81]: #examples-29
-[82]: #tolower
-[83]: #examples-30
-[84]: #toupper
-[85]: #examples-31
-[86]: #pattern
-[87]: #parameters-20
+[80]: #finite
+[81]: #parameters-20
+[82]: #examples-29
+[83]: #trim
+[84]: #examples-30
+[85]: #tolower
+[86]: #examples-31
+[87]: #toupper
 [88]: #examples-32
-[89]: #shape
+[89]: #pattern
 [90]: #parameters-21
 [91]: #examples-33
-[92]: #values
+[92]: #shape
 [93]: #parameters-22
 [94]: #examples-34
-[95]: #items
+[95]: #values
 [96]: #parameters-23
 [97]: #examples-35
-[98]: #tuple
+[98]: #items
 [99]: #parameters-24
 [100]: #examples-36
-[101]: #any
-[102]:
+[101]: #tuple
+[102]: #parameters-25
+[103]: #examples-37
+[104]: #any
+[105]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-[103]:
+[106]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-[104]:
-  https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
-[105]: #ref
-[106]: #number
 [107]:
+  https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[108]: #ref
+[109]: #number
+[110]:
   https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp
