@@ -6,6 +6,12 @@ import ok from "./ok";
 import errors from "./errors";
 import up from "./up";
 
+/**
+ * A reference to a value present at a particular path in the parent tree.
+ *
+ * @typedef {Object} Ref
+ */
+
 const IS_REF = createSymbol("IS_REF");
 const GET_REF = createSymbol("GET_REF");
 
