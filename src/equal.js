@@ -3,7 +3,7 @@ import withRefs from "./withRefs";
 import test from "./test";
 
 /**
- * Creates a check that fails if a value is not equal to another.
+ * Creates a check function that fails if a value is not equal to another.
  *
  * @param {any | Ref} value a value to check equality against
  * @param {any} message an error message

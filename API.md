@@ -270,7 +270,7 @@ Returns **[Function][113]** a check function.
 
 ## equal
 
-Creates a check that fails if a value is not equal to another.
+Creates a check function that fails if a value is not equal to another.
 
 ### Parameters
 
@@ -290,7 +290,7 @@ Returns **[Function][113]** a check function.
 
 ## notEqual
 
-Creates a check that fails if a value is equal to another.
+Creates a check function that fails if a value is equal to another.
 
 ### Parameters
 
