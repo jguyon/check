@@ -9,7 +9,7 @@ import test from "./test";
  * Creates a check function that fails if a value is greater than or equal to a
  * maximum.
  *
- * @param {number | Ref} max a value to compare
+ * @param {number | Ref} max a value to compare against
  * @param {any} message an error message
  * @returns {Function} a check function.
  *

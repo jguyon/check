@@ -9,7 +9,7 @@ import test from "./test";
  * Creates a check function that fails if a value is less than or equal to a
  * minimum.
  *
- * @param {number | Ref} min a value to compare
+ * @param {number | Ref} min a value to compare against
  * @param {any} message an error message
  * @returns {Function} a check function.
  *

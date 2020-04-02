@@ -708,7 +708,7 @@ Creates a check function that fails if a value is less than a minimum.
 
 ### Parameters
 
-- `min` **([number][127] \| [Ref][126])** a value to compare
+- `min` **([number][127] \| [Ref][126])** a value to compare against
 - `message` **[any][122]** an error message (optional, default `"is too low"`)
 
 ### Examples
@@ -729,7 +729,7 @@ Creates a check function that fails if a value is greater than a maximum.
 
 ### Parameters
 
-- `max` **([number][127] \| [Ref][126])** a value to compare
+- `max` **([number][127] \| [Ref][126])** a value to compare against
 - `message` **[any][122]** an error message (optional, default `"is too high"`)
 
 ### Examples
@@ -751,7 +751,7 @@ maximum.
 
 ### Parameters
 
-- `max` **([number][127] \| [Ref][126])** a value to compare
+- `max` **([number][127] \| [Ref][126])** a value to compare against
 - `message` **[any][122]** an error message (optional, default `"is too high"`)
 
 ### Examples
@@ -772,7 +772,7 @@ minimum.
 
 ### Parameters
 
-- `min` **([number][127] \| [Ref][126])** a value to compare
+- `min` **([number][127] \| [Ref][126])** a value to compare against
 - `message` **[any][122]** an error message (optional, default `"is too low"`)
 
 ### Examples
