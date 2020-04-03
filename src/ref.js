@@ -151,6 +151,16 @@ function makeMapErrors(path, keepErrors) {
   }
 }
 
+/**
+ * Checks whether a given value is a ref object.
+ *
+ * @param {any} maybeRef a value to check
+ * @returns {boolean} whether the value is a ref object
+ *
+ * @example
+ * C.isRef(C.ref(["password"])); // => true
+ * C.isRef({}); // => false
+ */
 export function isRef(maybeRef) {
   return _.isObjectLike(maybeRef) && maybeRef[IS_REF];
 }
