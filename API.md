@@ -227,6 +227,8 @@ Type: [Object][134]
 
 Creates a reference to a value located in a parent object.
 
+A reference to a value that does not exist will yield undefined.
+
 The ref references the value before any sibling check functions have been
 applied.
 
