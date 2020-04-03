@@ -7,7 +7,7 @@ import errors from "./errors";
 import up from "./up";
 
 /**
- * A reference to a value present at a particular path in the parent tree.
+ * A reference to a value located in a parent object.
  *
  * @typedef {Object} Ref
  */
@@ -15,6 +15,62 @@ import up from "./up";
 const IS_REF = createSymbol("IS_REF");
 const GET_REF = createSymbol("GET_REF");
 
+/**
+ * Creates a reference to a value located in a parent object.
+ *
+ * The ref references the value before any sibling check functions have been
+ * applied.
+ *
+ * You can give a check function if you need to validate or transform the value
+ * before using it.
+ *
+ * @param {Array} path an array of keys leading to the referenced value
+ * @param {Function} check a check function to apply to the referenced value
+ * @param {boolean} keepErrors whether or not to keep the errors given by the
+ * check function
+ * @returns {Ref} a ref object
+ *
+ * @example
+ * const check = C.shape({
+ *   password: C.string(),
+ *   passwordConfirmation: C.equal(C.ref(["password"])),
+ * });
+ *
+ * check({
+ *   password: "abcd",
+ *   passwordConfirmation: "abcd",
+ * }); // => { isOk: true, ... }
+ * check({
+ *   password: "abcd",
+ *   passwordConfirmation: "dcba",
+ * }); // => { isOk: false, ... }
+ *
+ * @example
+ * const check = C.shape({
+ *   email: C.pipe(
+ *     C.string(),
+ *     C.trim(),
+ *   ),
+ *   emailConfirmation: C.pipe(
+ *     C.string(),
+ *     C.trim(),
+ *     C.equal(
+ *       C.ref(
+ *         ["email"],
+ *         C.pipe(
+ *           C.string(),
+ *           C.trim(),
+ *         ),
+ *       ),
+ *     ),
+ *   ),
+ * });
+ *
+ * check({
+ *   email: "   john@doe.com ",
+ *   emailConfirmation: " john@doe.com    ",
+ * }); // => { isOk: true, ... }
+ */
 export default function ref(path, check = ok, keepErrors = false) {
   invariant(
     _.isArray(path),
