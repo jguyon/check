@@ -49,3 +49,19 @@ check({
 ```sh
 npm install --save @jguyon/check
 ```
+
+## Usage
+
+You create a validation function by composing smaller validation functions
+created using the utilities provided by this library.
+
+For example:
+
+```js
+import * as C from "@jguyon/check";
+
+const checkName = C.pipe(C.string(), C.trim(), C.minLength(2), C.maxLength(24));
+
+checkName("  Jérôme    "); // => { isOk: true, value: "Jérôme" }
+checkName("J"); // => { isOk: false, errors: [ ... ] }
+```
