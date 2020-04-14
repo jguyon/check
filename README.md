@@ -65,3 +65,19 @@ const checkName = C.pipe(C.string(), C.trim(), C.minLength(2), C.maxLength(24));
 checkName("  Jérôme    "); // => { isOk: true, value: "Jérôme" }
 checkName("J"); // => { isOk: false, errors: [ ... ] }
 ```
+
+The validation functions that this library composes are simply functions that
+take a value and return a result value, so you can easily write your own:
+
+```js
+import * as C from "@jguyon/check";
+
+const checkName = C.pipe(C.string(), C.trim(), value =>
+  value.length < 2 || value.length > 24
+    ? C.error(value, "has the wrong length")
+    : C.ok(value),
+);
+
+checkName("  Jérôme    "); // => { isOk: true, value: "Jérôme" }
+checkName("J"); // => { isOk: false, errors: [ ... ] }
+```
