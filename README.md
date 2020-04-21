@@ -81,3 +81,83 @@ const checkName = C.pipe(C.string(), C.trim(), value =>
 checkName("  Jérôme    "); // => { isOk: true, value: "Jérôme" }
 checkName("J"); // => { isOk: false, errors: [ ... ] }
 ```
+
+Validation functions receive additional arguments after the value that they are
+validating: its parent objects. They allow to validate values that depend on a
+sibling value:
+
+```js
+import * as C from "@jguyon/check";
+
+const checkUser = C.shape({
+  password: C.string(),
+  passwordConfirmation: (value, parent) =>
+    value === parent.password
+      ? C.ok(value)
+      : C.error(value, "does not match password"),
+});
+
+checkUser({
+  password: "supersecret",
+  passwordConfirmation: "supersecret",
+}); // => { isOk: true, ... }
+checkUser({
+  password: "supersecret",
+  passwordConfirmation: "invalid",
+}); // => { isOk: false, ... }
+```
+
+This API has the advantage of being simple and lean, but it has a downside:
+**the sibling values that you're validating with have not been transformed or
+validated yet**. You need to account for that:
+
+```js
+import * as C from "@jguyon/check";
+
+const checkUser = C.shape({
+  email: C.pipe(C.string(), C.trim(), C.pattern(/@/)),
+  emailConfirmation: (value, parent) =>
+    typeof parent.email !== "string" && parent.email.trim() === value.trim()
+      ? C.ok(value)
+      : C.error(value, "does not match email"),
+});
+
+checkUser({
+  email: "  john@doe.com    ",
+  emailConfirmation: "    john@doe.com ",
+}); // => { isOk: true, ... }
+checkUser({
+  email: "john@doe.com",
+  emailConfirmation: "invalid",
+}); // => { isOk: false, ... }
+```
+
+To simplify all this boilerplate, you can use refs:
+
+```js
+import * as C from "@jguyon/check";
+
+const checkUser = C.shape({
+  password: C.string(),
+  passwordConfirmation: C.pipe(C.string(), C.equal(C.ref(["password"]))),
+  email: C.pipe(C.string(), C.trim(), C.pattern(/@/)),
+  emailConfirmation: C.pipe(
+    C.string(),
+    C.trim(),
+    C.equal(C.ref(["email"], C.pipe(C.string(), C.trim()))),
+  ),
+});
+
+checkUser({
+  email: "john@doe.com",
+  emailConfirmation: "john@doe.com",
+  password: "supersecret",
+  passwordConfirmation: "supersecret",
+}); // => { isOk: true, ... }
+checkUser({
+  email: "john@doe.com",
+  emailConfirmation: "john@doe.com",
+  password: "supersecret",
+  passwordConfirmation: "invalid",
+}); // => { isOk: false, ... }
+```
