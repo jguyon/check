@@ -6,4 +6,5 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
   ],
+  watchPathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/docs/"],
 };

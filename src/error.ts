@@ -1,15 +1,13 @@
 /**
  * An invalid result.
- *
- * @param E The type of the wrapped error.
  */
-export interface ErrorResult<E = string> {
+export interface ErrorResult {
   isOk: false;
 
   /**
    * The error associated with the invalid value.
    */
-  error: E;
+  error: string;
 
   /**
    * The invalid value that led to the error.
@@ -26,7 +24,7 @@ export interface ErrorResult<E = string> {
  * Creates an invalid result.
  *
  * Without a path:
- * ```typescript
+ * ```js
  * error("value", "is invalid");
  * // => {
  * //   isOk: false,
@@ -37,7 +35,7 @@ export interface ErrorResult<E = string> {
  * ```
  *
  * With a path:
- * ```typescript
+ * ```js
  * error("value", "is invalid", ["one", "two"]);
  * // => {
  * //   isOk: false,
@@ -47,17 +45,16 @@ export interface ErrorResult<E = string> {
  * // }
  * ```
  *
- * @typeparam E The type of the wrapped error.
  * @param invalidValue The invalid value that led to the error.
  * @param error The error associated with the invalid value.
  * @param path The keys that lead to the invalid value from the parent object.
  * @returns An invalid result.
  */
-export default function error<E>(
+export default function error(
   invalidValue: unknown,
-  error: E,
+  error: string,
   path: unknown[] = [],
-): ErrorResult<E> {
+): ErrorResult {
   return {
     isOk: false,
     error,

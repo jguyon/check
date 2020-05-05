@@ -15,7 +15,7 @@ export interface OkResult<T> {
 /**
  * Creates a valid result.
  *
- * ```typescript
+ * ```js
  * check.ok("value");
  * // => {
  * //   isOk: true,
@@ -23,7 +23,6 @@ export interface OkResult<T> {
  * // }
  * ```
  *
- * @typeparam T The type of the wrapped value.
  * @param value The valid value to wrap.
  * @returns A valid result.
  */
