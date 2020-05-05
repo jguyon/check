@@ -1,7 +1,7 @@
-import { ok } from "../src";
+import * as check from "../src";
 
 test("ok result is returned", () => {
-  const result = ok("value");
+  const result = check.ok("value");
 
   expect(result).toEqual({
     isOk: true,

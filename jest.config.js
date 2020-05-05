@@ -1,6 +1,7 @@
 module.exports = {
-  testMatch: ["<rootDir>/test/*.test.js"],
+  preset: "ts-jest",
   testEnvironment: "node",
+  testMatch: ["<rootDir>/test/*.test.ts"],
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
