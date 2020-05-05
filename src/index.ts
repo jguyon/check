@@ -5,3 +5,5 @@ export { default as Check } from "./check";
 
 export { default as test } from "./test";
 export { default as transform } from "./transform";
+
+export { default as is } from "./is";

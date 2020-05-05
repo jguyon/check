@@ -31,5 +31,8 @@
     "ts-jest": "^25.4.0",
     "typedoc": "^0.17.0-3",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "object.is": "^1.0.0"
   }
 }
