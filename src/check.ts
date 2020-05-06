@@ -9,7 +9,7 @@ export default Check;
  * @param O The type of valid output values.
  * @param A The type of additional arguments to the function.
  */
-type Check<I, O, A extends unknown[] = unknown[]> = (
+type Check<I, O = I, A extends unknown[] = unknown[]> = (
   value: I,
   ...args: A
 ) => Result<O>;

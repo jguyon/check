@@ -37,18 +37,6 @@ export default function test<V, A extends unknown[]>(
  * // => { isOk: false, ... }
  * ```
  *
- * All the arguments passed to the resulting check function are passed to the
- * predicate function:
- * ```js
- * const check = test((value, other) => value === other);
- *
- * check(42, 42);
- * // => { isOk: true, ... }
- *
- * check(42, 43);
- * // => { isOk: false, ... }
- * ```
- *
  * @param predicate The predicate function to test with.
  * @param error The error to give when the predicate fails.
  * @param path The path to give with the error.
