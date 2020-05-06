@@ -14,7 +14,7 @@
   "scripts": {
     "clean": "rimraf dist docs",
     "build": "microbundle",
-    "docs": "typedoc --mode library --out docs src/index.ts",
+    "docs": "typedoc --mode library --ignoreCompilerErrors --out docs src/index.ts",
     "test": "jest",
     "format": "prettier --write .",
     "prepublishOnly": "npm run clean && npm run build"
