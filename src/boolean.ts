@@ -2,7 +2,7 @@ import Check from "./check";
 import test from "./test";
 
 /**
- * Creates a check function that fails if the given value is not a boolean.
+ * Creates a check function that fails when the given value is not a boolean.
  *
  * ```js
  * const check = boolean();
