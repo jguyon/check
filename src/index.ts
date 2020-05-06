@@ -14,3 +14,4 @@ export { default as number } from "./number";
 export { default as string } from "./string";
 export { default as date } from "./date";
 export { default as object } from "./object";
+export { default as array } from "./array";
