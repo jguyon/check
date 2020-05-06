@@ -34,6 +34,23 @@ test("given error is returned with the invalid result", () => {
   });
 });
 
+test("given path and invalid value are returned with the invalid result", () => {
+  const checkValue = check.test(
+    ({ value }) => value === 42,
+    "is invalid",
+    ["value"],
+    ({ value }) => value,
+  );
+  const result = checkValue({ value: 43 });
+
+  expect(result).toEqual({
+    isOk: false,
+    error: "is invalid",
+    invalidValue: 43,
+    path: ["value"],
+  });
+});
+
 test("additional arguments are passed to the test function", () => {
   const checkValue = check.test(
     (value, ...args) =>
@@ -44,5 +61,22 @@ test("additional arguments are passed to the test function", () => {
   expect(result).toEqual({
     isOk: true,
     value: 42,
+  });
+});
+
+test("additional arguments are passed to the function to get the invalid value", () => {
+  const checkValue = check.test(
+    (value, ...args: unknown[]) => value === 42,
+    "is invalid",
+    [],
+    (value, ...args: unknown[]) => args,
+  );
+  const result = checkValue(43, "one", "two");
+
+  expect(result).toEqual({
+    isOk: false,
+    error: "is invalid",
+    invalidValue: ["one", "two"],
+    path: [],
   });
 });
