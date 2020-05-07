@@ -17,3 +17,4 @@ export { default as object } from "./object";
 export { default as array } from "./array";
 
 export { default as toBoolean } from "./toBoolean";
+export { default as toNumber } from "./toNumber";
