@@ -23,3 +23,4 @@ export { default as toDate } from "./toDate";
 
 export { default as floor } from "./floor";
 export { default as ceil } from "./ceil";
+export { default as round } from "./round";
