@@ -22,3 +22,4 @@ export { default as toString } from "./toString";
 export { default as toDate } from "./toDate";
 
 export { default as floor } from "./floor";
+export { default as ceil } from "./ceil";
