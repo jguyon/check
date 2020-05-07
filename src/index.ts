@@ -27,3 +27,4 @@ export { default as floor } from "./floor";
 export { default as ceil } from "./ceil";
 export { default as round } from "./round";
 export { default as truncate } from "./truncate";
+export { default as min } from "./min";
