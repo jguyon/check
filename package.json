@@ -33,6 +33,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "is-finite": "^1.1.0",
     "is-integer": "^1.0.7",
     "object.is": "^1.0.0"
   }
