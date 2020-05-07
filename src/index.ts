@@ -18,3 +18,4 @@ export { default as array } from "./array";
 
 export { default as toBoolean } from "./toBoolean";
 export { default as toNumber } from "./toNumber";
+export { default as toString } from "./toString";
