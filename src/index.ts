@@ -35,3 +35,4 @@ export { default as moreThan } from "./moreThan";
 export { default as trim } from "./trim";
 export { default as toLower } from "./toLower";
 export { default as toUpper } from "./toUpper";
+export { default as pattern } from "./pattern";
