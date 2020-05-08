@@ -29,3 +29,4 @@ export { default as round } from "./round";
 export { default as truncate } from "./truncate";
 export { default as min } from "./min";
 export { default as max } from "./max";
+export { default as lessThan } from "./lessThan";
