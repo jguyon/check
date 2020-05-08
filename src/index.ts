@@ -33,3 +33,4 @@ export { default as lessThan } from "./lessThan";
 export { default as moreThan } from "./moreThan";
 
 export { default as trim } from "./trim";
+export { default as toLower } from "./toLower";
