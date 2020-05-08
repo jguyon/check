@@ -3,7 +3,8 @@ import Check from "./check";
 import test from "./test";
 
 /**
- * Creates a check function that fails when a value is not equal to another.
+ * Creates a check function that fails when a value is not strictly equal to
+ * another.
  *
  * ```js
  * const check = is(42);
