@@ -20,9 +20,9 @@ import test from "./test";
  * @param error The error to give if the value is invalid.
  * @returns A check function.
  */
-export default function minLength(
+export default function minLength<T extends ArrayLike<unknown>>(
   min: number,
   error: string = "is too short",
-): Check<ArrayLike<unknown>> {
+): Check<T> {
   return test((value) => value.length >= min, error);
 }

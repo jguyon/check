@@ -20,9 +20,9 @@ import test from "./test";
  * @param error The error to give if the value is invalid.
  * @returns A check function.
  */
-export default function maxLength(
+export default function maxLength<T extends ArrayLike<unknown>>(
   max: number,
   error: string = "is too long",
-): Check<ArrayLike<unknown>> {
+): Check<T> {
   return test((value) => value.length <= max, error);
 }
