@@ -4,8 +4,6 @@
     "target": "es5",
     "module": "es2015",
     "noEmit": true,
-    "importHelpers": true,
-    "downlevelIteration": true,
     "strict": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
