@@ -1,7 +1,7 @@
 import * as check from "../src";
 
 test("check succeeds with given value", () => {
-  const checkValue = check.succeed();
+  const checkValue = check.pass();
 
   for (const value of [
     null,
