@@ -40,5 +40,6 @@ export { default as pattern } from "./pattern";
 export { default as minLength } from "./minLength";
 export { default as maxLength } from "./maxLength";
 
+export { default as not } from "./not";
 export { default as chain } from "./chain";
 export { default as oneOf } from "./oneOf";
