@@ -43,3 +43,5 @@ export { default as maxLength } from "./maxLength";
 export { default as not } from "./not";
 export { default as chain } from "./chain";
 export { default as oneOf } from "./oneOf";
+
+export { default as shape } from "./shape";
