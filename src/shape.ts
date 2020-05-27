@@ -8,11 +8,7 @@ export default function shape<
 >(checks: { [P in keyof O]: Check<I[P], O[P], A> }): Check<I, O, A>;
 
 /**
- * Creates a check function that uses different check functions on different
- * properties of an object.
- *
- * The resulting check function doesn't verify that the input value is an
- * object, chain it after the `object` check if you need that.
+ * Creates a check function that validates the properties of an object.
  *
  * ```js
  * const check = shape({

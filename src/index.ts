@@ -45,3 +45,4 @@ export { default as chain } from "./chain";
 export { default as oneOf } from "./oneOf";
 
 export { default as shape } from "./shape";
+export { default as items } from "./items";
