@@ -45,6 +45,7 @@ export { default as chain } from "./chain";
 export { default as oneOf } from "./oneOf";
 
 export { default as optional } from "./optional";
+export { default as nullable } from "./nullable";
 
 export { default as items } from "./items";
 export { default as shape } from "./shape";

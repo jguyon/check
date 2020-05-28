@@ -1,14 +1,14 @@
 import * as check from "../src";
 
 test("check succeeds when given value is present and child check succeeds", () => {
-  const checkValue = check.optional(check.trim());
+  const checkValue = check.optional(check.toString());
 
-  for (const value of ["jerome", ""]) {
+  for (const value of ["jerome", "", 42, 0, null]) {
     const result = checkValue(value);
 
     expect(result).toEqual({
       isOk: true,
-      value,
+      value: value === null ? "" : String(value),
     });
   }
 });
