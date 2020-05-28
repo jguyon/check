@@ -9,6 +9,7 @@ export { default as test } from "./test";
 export { default as transform } from "./transform";
 
 export { default as is } from "./is";
+export { default as null } from "./null";
 export { default as boolean } from "./boolean";
 export { default as number } from "./number";
 export { default as integer } from "./integer";
