@@ -44,6 +44,8 @@ export { default as not } from "./not";
 export { default as chain } from "./chain";
 export { default as oneOf } from "./oneOf";
 
+export { default as optional } from "./optional";
+
 export { default as items } from "./items";
 export { default as shape } from "./shape";
 export { default as tuple } from "./tuple";
