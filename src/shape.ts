@@ -1,6 +1,9 @@
 import Check from "./check";
 import ok from "./ok";
 
+export default function shape<O, A extends unknown[]>(
+  checks: { [P in keyof O]: Check<unknown, O[P], A> },
+): Check<object, O, A>;
 export default function shape<
   I extends { [P in keyof O]: I[P] },
   O,
