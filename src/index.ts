@@ -11,6 +11,7 @@ export { default as transform } from "./transform";
 export { default as is } from "./is";
 export { default as null } from "./null";
 export { default as undefined } from "./undefined";
+export { default as NaN } from "./NaN";
 export { default as boolean } from "./boolean";
 export { default as number } from "./number";
 export { default as integer } from "./integer";
