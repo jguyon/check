@@ -1,6 +1,6 @@
 {
   "name": "@jguyon/check",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Composable validation functions",
   "license": "MIT",
   "author": "Jérôme Guyon <jeromep.guyon@gmail.com>",
