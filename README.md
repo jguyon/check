@@ -73,3 +73,7 @@ checkPasswordConfirmation("password", "password");
 checkPasswordConfirmation("invalid", "password");
 // => { isOk: false, error: "does not match password", ... }
 ```
+
+## Documentation
+
+Here is the [full documentation](https://check.jguyon.vercel.app/).
