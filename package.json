@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "clean": "rimraf dist docs",
-    "build": "run-s build:cjs build:esm build:types",
+    "build": "run-p build:cjs build:esm build:types",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:types": "tsc -p tsconfig.types.json",
