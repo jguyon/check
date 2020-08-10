@@ -1,6 +1,24 @@
 {
   "name": "@jguyon/check",
   "version": "0.1.0",
+  "description": "Composable validation functions",
+  "license": "MIT",
+  "author": "Jérôme Guyon <jeromep.guyon@gmail.com>",
+  "keywords": [
+    "javascript",
+    "typescript",
+    "validation",
+    "library",
+    "composable"
+  ],
+  "homepage": "https://github.com/jguyon/check#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jguyon/check.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jguyon/check/issues"
+  },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
