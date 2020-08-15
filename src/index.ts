@@ -8,6 +8,7 @@ export { default as fail } from "./fail";
 export { default as test } from "./test";
 export { default as testAsync } from "./testAsync";
 export { default as transform } from "./transform";
+export { default as transformAsync } from "./transformAsync";
 
 export { default as is } from "./is";
 export { default as null } from "./null";

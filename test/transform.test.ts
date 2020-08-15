@@ -10,7 +10,7 @@ test("check succeeds with transformed value", () => {
   });
 });
 
-test("additional arguments are passed to the transformed function", () => {
+test("additional arguments are passed to the transform function", () => {
   const checkValue = check.transform((value, ...args) => args);
   const result = checkValue(42, "one", "two");
 
