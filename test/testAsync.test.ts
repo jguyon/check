@@ -1,0 +1,85 @@
+import * as check from "../src";
+
+test("check succeeds when given test succeeds", async () => {
+  const checkValue = check.testAsync(async (value) => value === 42);
+  const result = await checkValue(42);
+
+  expect(result).toEqual({
+    isOk: true,
+    value: 42,
+  });
+});
+
+test("check fails when given test fails", async () => {
+  const checkValue = check.testAsync(async (value) => value === 42);
+  const result = await checkValue(43);
+
+  expect(result).toEqual({
+    isOk: false,
+    error: "is invalid",
+    invalidValue: 43,
+    path: [],
+  });
+});
+
+test("given error is returned with the invalid result", async () => {
+  const checkValue = check.testAsync(
+    async (value) => value === 42,
+    "is not 42",
+  );
+  const result = await checkValue(43);
+
+  expect(result).toEqual({
+    isOk: false,
+    error: "is not 42",
+    invalidValue: 43,
+    path: [],
+  });
+});
+
+test("given path and invalid value are returned with the invalid result", async () => {
+  const checkValue = check.testAsync(
+    async ({ value }) => value === 42,
+    "is invalid",
+    ["value"],
+    ({ value }) => value,
+  );
+  const result = await checkValue({ value: 43 });
+
+  expect(result).toEqual({
+    isOk: false,
+    error: "is invalid",
+    invalidValue: 43,
+    path: ["value"],
+  });
+});
+
+test("additional arguments are passed to the test function", async () => {
+  const checkValue = check.testAsync(
+    async (value, ...args) =>
+      args.length === 2 && args[0] === "one" && args[1] === "two",
+  );
+  const result = await checkValue(42, "one", "two");
+
+  expect(result).toEqual({
+    isOk: true,
+    value: 42,
+  });
+});
+
+test("additional arguments are passed to the function to get the invalid value", async () => {
+  const checkValue = check.testAsync(
+    async (value, ...args: unknown[]) => value === 42,
+    "is invalid",
+    [],
+    (value, ...args: unknown[]) => args,
+  );
+  const result = await checkValue(43, "one", "two");
+
+  expect(result).toEqual({
+    isOk: false,
+    error: "is invalid",
+    invalidValue: ["one", "two"],
+    path: [],
+  });
+});
