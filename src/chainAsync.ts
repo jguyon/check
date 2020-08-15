@@ -214,22 +214,22 @@ export default function chainAsync<
 ): AsyncCheck<V1, V13, A>;
 
 /**
- * Creates an async check function that chains a set of child async check
- * functions.
- *
- * The chain stops at the first failure.
+ * Asynchronous version of [[`chain`]].
  *
  * ```js
  * const check = chainAsync(
  *   string(),
  *   trim(),
- *   maxLength(6),
- *   testAsync(value => doesNotExistInDb(value), "already exists"),
+ *   testAsync(async value => value === "jerome"),
  * );
  *
- * check("unique value");
- * // => { isOk: true, ... }
- * check("existing value");
+ * await check("  jerome   ");
+ * // => {
+ * //   isOk: true,
+ * //   value: "jerome",
+ * // }
+ *
+ * await check("john");
  * // => { isOk: false, ... }
  * ```
  *

@@ -14,18 +14,18 @@ export default function notAsync<V, A extends unknown[]>(
 ): AsyncCheck<V, V, A>;
 
 /**
- * Creates an async check function that negates another async check function.
+ * Asynchronous version of [[`not`]].
  *
  * ```js
- * const check = notAsync(async id => await doesIdExistInDb(id));
+ * const check = notAsync(testAsync(async value => value === 42));
  *
- * await check("new-id");
+ * await check(43);
  * // => { isOk: true, ... }
- * await check("existing-id");
+ * await check(42);
  * // => { isOk: false, ... }
  * ```
  *
- * @param check The check to negate.
+ * @param check The async check to negate.
  * @param error The error to give if the value is invalid.
  * @param path The path to give with the error.
  * @param getInvalidValue A function to get the invalid value from the passed

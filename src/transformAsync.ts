@@ -2,19 +2,19 @@ import AsyncCheck from "./asyncCheck";
 import ok from "./ok";
 
 /**
- * Creates an async check function that transforms a value into another.
+ * Asynchronous version of [[`transform`]].
  *
  * ```js
- * const check = transformAsync(async id => await getRecordFromDb(id));
+ * const check = transformAsync(async value => value / 2);
  *
- * await check("some-id");
+ * await check(42);
  * // => {
  * //   isOk: true,
- * //   value: { id: "some-id", ... },
+ * //   value: 21,
  * // }
  * ```
  *
- * @param trans The function to transform with.
+ * @param trans The async function to transform with.
  * @returns An async check function.
  */
 export default function transformAsync<I, O, A extends unknown[]>(

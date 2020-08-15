@@ -14,16 +14,15 @@ export default function testAsync<V, A extends unknown[]>(
 ): AsyncCheck<V, V, A>;
 
 /**
- * Creates an async check function that succeeds or fails based on a predicate
- * function.
+ * Asynchronous version of [[`test`]].
  *
  * ```js
- * const check = testAsync(async value => await doesIdAlreadyExist(value));
+ * const check = testAsync(async value => value === 42);
  *
- * await check("new-id");
+ * await check(42);
  * // => { isOk: true, ... }
  *
- * await check("existing-id");
+ * await check(43);
  * // => { isOk: false, ... }
  * ```
  *
