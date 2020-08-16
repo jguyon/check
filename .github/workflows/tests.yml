@@ -1,0 +1,26 @@
+name: Test Project
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install packages
+      run: npm install
+    - name: Build project
+      run: npm run build
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install packages
+      run: npm install
+    - name: Build project
+      run: npm test
+
