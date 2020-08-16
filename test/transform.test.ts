@@ -1,21 +1,29 @@
 import * as check from "../src";
 
 test("check succeeds with transformed value", () => {
-  const checkValue = check.transform(String);
+  const checkValue = check.transform(() => "jerome");
   const result = checkValue(42);
 
   expect(result).toEqual({
     isOk: true,
-    value: "42",
+    value: "jerome",
   });
 });
 
-test("additional arguments are passed to the transform function", () => {
-  const checkValue = check.transform((value, ...args) => args);
-  const result = checkValue(42, "one", "two");
+test("given transform function is called with the value to transform", () => {
+  const transform = jest.fn(() => "jerome");
+  const checkValue = check.transform(transform);
+  checkValue(42);
 
-  expect(result).toEqual({
-    isOk: true,
-    value: ["one", "two"],
-  });
+  expect(transform).toHaveBeenCalledTimes(1);
+  expect(transform).toHaveBeenCalledWith(42);
+});
+
+test("given transform function is called with the additional arguments", () => {
+  const transform = jest.fn(() => "jerome");
+  const checkValue = check.transform<unknown, unknown, unknown[]>(transform);
+  checkValue(42, "one", "two");
+
+  expect(transform).toHaveBeenCalledTimes(1);
+  expect(transform).toHaveBeenCalledWith(expect.anything(), "one", "two");
 });
