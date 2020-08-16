@@ -1,8 +1,8 @@
 import * as check from "../src";
 
 test("check succeeds when child check fails", async () => {
-  const checkValue = check.notAsync(
-    check.testAsync(async (value) => value === 42),
+  const checkValue = check.notAsync(async () =>
+    check.error("value", "is wrong"),
   );
   const result = await checkValue(43);
 
@@ -13,9 +13,7 @@ test("check succeeds when child check fails", async () => {
 });
 
 test("check fails when child check succeeds", async () => {
-  const checkValue = check.notAsync(
-    check.testAsync(async (value) => value === 42),
-  );
+  const checkValue = check.notAsync(async () => check.ok("value"));
   const result = await checkValue(42);
 
   expect(result).toEqual({
@@ -26,16 +24,31 @@ test("check fails when child check succeeds", async () => {
   });
 });
 
+test("child check is called with given value", async () => {
+  const checkChild = jest.fn(async () => check.ok("value"));
+  const checkValue = check.notAsync(checkChild);
+  await checkValue(42);
+
+  expect(checkChild).toHaveBeenCalledTimes(1);
+  expect(checkChild).toHaveBeenCalledWith(42);
+});
+
+test("child check is called with the additional arguments", async () => {
+  const checkChild = jest.fn(async () => check.ok("value"));
+  const checkValue = check.notAsync<unknown, unknown[]>(checkChild);
+  await checkValue(42, "one", "two");
+
+  expect(checkChild).toHaveBeenCalledTimes(1);
+  expect(checkChild).toHaveBeenCalledWith(expect.anything(), "one", "two");
+});
+
 test("given error is returned with the invalid result", async () => {
-  const checkValue = check.notAsync(
-    check.testAsync(async (value) => value === 42),
-    "is 42",
-  );
+  const checkValue = check.notAsync(async () => check.ok("value"), "is wrong");
   const result = await checkValue(42);
 
   expect(result).toEqual({
     isOk: false,
-    error: "is 42",
+    error: "is wrong",
     invalidValue: 42,
     path: [],
   });
@@ -43,51 +56,45 @@ test("given error is returned with the invalid result", async () => {
 
 test("given path and invalid value are returned with the invalid result", async () => {
   const checkValue = check.notAsync(
-    check.testAsync(async ({ value }) => value === 42),
+    async () => check.ok("value"),
     "is invalid",
     ["value"],
-    ({ value }) => value,
+    () => "invalid value",
   );
-  const result = await checkValue({ value: 42 });
+  const result = await checkValue(42);
 
   expect(result).toEqual({
     isOk: false,
     error: "is invalid",
-    invalidValue: 42,
+    invalidValue: "invalid value",
     path: ["value"],
   });
 });
 
-test("additional arguments are passed to the child check", async () => {
+test("given function to get the invalid value is called with the validated value", async () => {
+  const getInvalidValue = jest.fn(() => "invalid value");
   const checkValue = check.notAsync(
-    check.testAsync(
-      async (value, ...args) =>
-        args.length === 2 && args[0] === "one" && args[1] === "two",
-    ),
+    async () => check.ok("value"),
+    "is invalid",
+    ["value"],
+    getInvalidValue,
   );
-  const result = await checkValue(42, "one", "two");
+  await checkValue(42);
 
-  expect(result).toEqual({
-    isOk: false,
-    error: "is invalid",
-    invalidValue: 42,
-    path: [],
-  });
+  expect(getInvalidValue).toHaveBeenCalledTimes(1);
+  expect(getInvalidValue).toHaveBeenCalledWith(42);
 });
 
-test("additional arguments are passed to the function to get the invalid value", async () => {
-  const checkValue = check.notAsync(
-    check.testAsync(async (value, ...args: unknown[]) => value === 42),
+test("given function to get the invalid value is called with the additional arguments", async () => {
+  const getInvalidValue = jest.fn(() => "invalid value");
+  const checkValue = check.notAsync<unknown, unknown[]>(
+    async () => check.ok("value"),
     "is invalid",
-    [],
-    (value, ...args: unknown[]) => args,
+    ["value"],
+    getInvalidValue,
   );
-  const result = await checkValue(42, "one", "two");
+  await checkValue(42, "one", "two");
 
-  expect(result).toEqual({
-    isOk: false,
-    error: "is invalid",
-    invalidValue: ["one", "two"],
-    path: [],
-  });
+  expect(getInvalidValue).toHaveBeenCalledTimes(1);
+  expect(getInvalidValue).toHaveBeenCalledWith(expect.anything(), "one", "two");
 });
