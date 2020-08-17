@@ -55,6 +55,7 @@ export { default as oneOfAsync } from "./oneOfAsync";
 export { default as optional } from "./optional";
 export { default as optionalAsync } from "./optionalAsync";
 export { default as nullable } from "./nullable";
+export { default as nullableAsync } from "./nullableAsync";
 
 export { default as items } from "./items";
 export { default as shape } from "./shape";
