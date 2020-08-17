@@ -50,6 +50,7 @@ export { default as notAsync } from "./notAsync";
 export { default as chain } from "./chain";
 export { default as chainAsync } from "./chainAsync";
 export { default as oneOf } from "./oneOf";
+export { default as oneOfAsync } from "./oneOfAsync";
 
 export { default as optional } from "./optional";
 export { default as nullable } from "./nullable";
