@@ -1,93 +1,96 @@
 import * as check from "../src";
 
-test("check succeeds when given value has the right shape", () => {
-  const checkValue = check.tuple<string[], [string, string], []>([
-    check.chain(check.trim(), check.is("value one")),
-    check.chain(check.trim(), check.is("value two")),
-  ]);
-  const result = checkValue([" value one  ", "   value two  "]);
+test("check succeeds when all child checks succeed", () => {
+  const checkValue = check.tuple([() => check.ok(1), () => check.ok(2)]);
+  const result = checkValue(["one", "two"]);
 
   expect(result).toEqual({
     isOk: true,
-    value: ["value one", "value two"],
+    value: [1, 2],
   });
 });
 
 test("check fails when given value does not have the right length", () => {
-  const checkValue = check.tuple<unknown[], [string, string], []>([
-    check.is("value one"),
-    check.is("value two"),
+  const checkValue = check.tuple([
+    () => check.error(1, "is wrong"),
+    () => check.error(2, "is wrong"),
   ]);
-  const result = checkValue(["asdf"]);
+  const result = checkValue(["one"]);
 
   expect(result).toEqual({
     isOk: false,
     error: "does not have 2 items",
-    invalidValue: ["asdf"],
+    invalidValue: ["one"],
     path: [],
   });
 });
 
-test("check fails when some items are invalid", () => {
-  const checkValue = check.tuple<unknown[], [string, string, string], []>([
-    check.is("value one"),
-    check.is("value two", "is invalid two"),
-    check.is("value three", "is invalid three"),
+test("check fails when at least one child check fails", () => {
+  const checkValue = check.tuple([
+    () => check.ok(1),
+    () => check.error(2, "is wrong"),
+    () => check.error(3, "is wrong"),
   ]);
-  const result = checkValue(["value one", "invalid", "invalid"]);
+  const result = checkValue(["one", "two", "three"]);
 
   expect(result).toEqual({
     isOk: false,
-    error: "is invalid two",
-    invalidValue: "invalid",
+    error: "is wrong",
+    invalidValue: 2,
     path: [1],
   });
 });
 
+test("child checks are called with value at corresponding index", () => {
+  const checkOne = jest.fn(() => check.ok(1));
+  const checkTwo = jest.fn(() => check.ok(2));
+  const checkValue = check.tuple([checkOne, checkTwo]);
+  checkValue(["one", "two"]);
+
+  expect(checkOne).toHaveBeenCalledTimes(1);
+  expect(checkOne).toHaveBeenCalledWith("one");
+  expect(checkTwo).toHaveBeenCalledTimes(1);
+  expect(checkTwo).toHaveBeenCalledWith("two");
+});
+
+test("child checks are called with the additional arguments", () => {
+  const checkOne = jest.fn(() => check.ok(1));
+  const checkTwo = jest.fn(() => check.ok(2));
+  const checkValue = check.tuple([checkOne, checkTwo]);
+  checkValue([1, 2], "one", "two");
+
+  expect(checkOne).toHaveBeenCalledTimes(1);
+  expect(checkOne).toHaveBeenCalledWith(expect.anything(), "one", "two");
+  expect(checkTwo).toHaveBeenCalledTimes(1);
+  expect(checkTwo).toHaveBeenCalledWith(expect.anything(), "one", "two");
+});
+
 test("given length error is returned with the invalid result", () => {
-  const checkValue = check.tuple<unknown[], [string, string], []>(
-    [check.is("value one"), check.is("value two")],
+  const checkValue = check.tuple(
+    [() => check.ok(1), () => check.ok(2)],
     "does not have two items",
   );
-  const result = checkValue(["value one"]);
+  const result = checkValue(["one"]);
 
   expect(result).toEqual({
     isOk: false,
     error: "does not have two items",
-    invalidValue: ["value one"],
+    invalidValue: ["one"],
     path: [],
   });
 });
 
 test("correct path is returned with the item error", () => {
-  const checkValue = check.tuple<unknown[][], [[string, string]], []>([
-    check.tuple<unknown[], [string, string], []>([
-      check.is("value one", "is invalid"),
-      check.is("value two", "is invalid"),
-    ]),
+  const checkValue = check.tuple([
+    () => check.ok(1),
+    () => check.error(2, "is wrong", [2]),
   ]);
-  const result = checkValue([["value one", "invalid"]]);
+  const result = checkValue(["one", "two"]);
 
   expect(result).toEqual({
     isOk: false,
-    error: "is invalid",
-    invalidValue: "invalid",
-    path: [0, 1],
-  });
-});
-
-test("additional arguments are passed to the child checks", () => {
-  const checkValue = check.tuple<unknown[], [unknown[], unknown[]], unknown[]>([
-    (value, ...args) => check.ok(args),
-    (value, ...args) => check.ok(args),
-  ]);
-  const result = checkValue(["value one", "value two"], "arg one", "arg two");
-
-  expect(result).toEqual({
-    isOk: true,
-    value: [
-      ["arg one", "arg two"],
-      ["arg one", "arg two"],
-    ],
+    error: "is wrong",
+    invalidValue: 2,
+    path: [1, 2],
   });
 });
