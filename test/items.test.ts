@@ -28,9 +28,9 @@ test("child check is called with all items", () => {
   checkValue([1, 2, 3]);
 
   expect(checkItem).toHaveBeenCalledTimes(3);
-  expect(checkItem).toHaveBeenNthCalledWith(1, 1);
-  expect(checkItem).toHaveBeenNthCalledWith(2, 2);
-  expect(checkItem).toHaveBeenNthCalledWith(3, 3);
+  expect(checkItem).toHaveBeenCalledWith(1);
+  expect(checkItem).toHaveBeenCalledWith(2);
+  expect(checkItem).toHaveBeenCalledWith(3);
 });
 
 test("child check is called with the additional arguments", () => {
