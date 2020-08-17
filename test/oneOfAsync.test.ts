@@ -84,3 +84,18 @@ test("child checks are not called after first success", async () => {
   expect(checkThree).not.toHaveBeenCalled();
   expect(checkFour).not.toHaveBeenCalled();
 });
+
+test("synchronous child checks are handled", async () => {
+  const checkValue = check.oneOfAsync(
+    async () => check.error(1, "is wrong"),
+    () => check.error(2, "is wrong"),
+    async () => check.error(3, "is wrong"),
+    () => check.ok(4),
+  );
+  const result = await checkValue(42);
+
+  expect(result).toEqual({
+    isOk: true,
+    value: 4,
+  });
+});

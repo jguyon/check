@@ -66,3 +66,13 @@ test("child check is not called when given value is not present", async () => {
 
   expect(checkChild).not.toHaveBeenCalled();
 });
+
+test("synchronous child checks are handled", async () => {
+  const checkValue = check.optionalAsync(() => check.ok("value"));
+  const result = await checkValue(42);
+
+  expect(result).toEqual({
+    isOk: true,
+    value: "value",
+  });
+});
