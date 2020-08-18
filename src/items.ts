@@ -2,7 +2,7 @@ import Check from "./check";
 import ok from "./ok";
 
 /**
- * Creates a check function that validates the items of an iterable.
+ * Creates a check function that validates the items of an array.
  *
  * ```js
  * const check = items(chain(string(), trim()));
