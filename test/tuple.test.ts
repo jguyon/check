@@ -56,7 +56,10 @@ test("child checks are called with value at corresponding index", () => {
 test("child checks are called with the additional arguments", () => {
   const checkOne = jest.fn(() => check.ok(1));
   const checkTwo = jest.fn(() => check.ok(2));
-  const checkValue = check.tuple([checkOne, checkTwo]);
+  const checkValue = check.tuple<unknown, number, number, unknown[]>([
+    checkOne,
+    checkTwo,
+  ]);
   checkValue([1, 2], "one", "two");
 
   expect(checkOne).toHaveBeenCalledTimes(1);
