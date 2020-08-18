@@ -1,7 +1,7 @@
 import * as check from "../src";
 
-test("check succeeds when given value has only valid items", () => {
-  const checkValue = check.items(check.chain(check.string(), check.trim()));
+test("check succeeds when child check succeeds on all items", () => {
+  const checkValue = check.items(check.trim());
   const result = checkValue(["one", " two  "]);
 
   expect(result).toEqual({
@@ -10,7 +10,7 @@ test("check succeeds when given value has only valid items", () => {
   });
 });
 
-test("check fails when given value has invalid items", () => {
+test("check fails when child check fails on at least one item", () => {
   const checkValue = check.items(check.is("valid", "is invalid"));
   const result = checkValue(["valid", "invalid one", "invalid two"]);
 
@@ -22,27 +22,38 @@ test("check fails when given value has invalid items", () => {
   });
 });
 
+test("child check is called with all items", () => {
+  const checkItem = jest.fn(() => check.ok(42));
+  const checkValue = check.items(checkItem);
+  checkValue([1, 2, 3]);
+
+  expect(checkItem).toHaveBeenCalledTimes(3);
+  expect(checkItem).toHaveBeenCalledWith(1);
+  expect(checkItem).toHaveBeenCalledWith(2);
+  expect(checkItem).toHaveBeenCalledWith(3);
+});
+
+test("child check is called with the additional arguments", () => {
+  const checkItem = jest.fn(() => check.ok(42));
+  const checkValue = check.items<unknown, number, unknown[]>(checkItem);
+  checkValue([1, 2, 3], "one", "two");
+
+  expect(checkItem).toHaveBeenCalledTimes(3);
+  expect(checkItem).toHaveBeenNthCalledWith(1, expect.anything(), "one", "two");
+  expect(checkItem).toHaveBeenNthCalledWith(2, expect.anything(), "one", "two");
+  expect(checkItem).toHaveBeenNthCalledWith(3, expect.anything(), "one", "two");
+});
+
 test("correct path is returned with the error", () => {
-  const checkValue = check.items(check.items(check.is("valid", "is invalid")));
-  const result = checkValue([["valid", "invalid"]]);
+  const checkValue = check.items((value) =>
+    value === "valid" ? check.ok(value) : check.error(value, "is wrong", [2]),
+  );
+  const result = checkValue(["valid", "invalid"]);
 
   expect(result).toEqual({
     isOk: false,
-    error: "is invalid",
+    error: "is wrong",
     invalidValue: "invalid",
-    path: [0, 1],
-  });
-});
-
-test("additional arguments are passed to the child check", () => {
-  const checkValue = check.items((value, ...args) => check.ok(args));
-  const result = checkValue([1, 2], "one", "two");
-
-  expect(result).toEqual({
-    isOk: true,
-    value: [
-      ["one", "two"],
-      ["one", "two"],
-    ],
+    path: [1, 2],
   });
 });

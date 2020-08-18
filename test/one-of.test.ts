@@ -1,8 +1,8 @@
 import * as check from "../src";
 
-test("check succeeds when all child checks succeed", () => {
-  const checkValue = check.chain(
-    () => check.ok(1),
+test("check succeeds when at least one child check succeeds", () => {
+  const checkValue = check.oneOf(
+    () => check.error(1, "is wrong"),
     () => check.ok(2),
     () => check.ok(3),
   );
@@ -10,26 +10,15 @@ test("check succeeds when all child checks succeed", () => {
 
   expect(result).toEqual({
     isOk: true,
-    value: 3,
+    value: 2,
   });
 });
 
-test("check succeeds when no checks are given", () => {
-  const checkValue = check.chain();
-  const result = checkValue(42);
-
-  expect(result).toEqual({
-    isOk: true,
-    value: 42,
-  });
-});
-
-test("check fails with error from first failing child check", () => {
-  const checkValue = check.chain(
-    () => check.ok(1),
-    () => check.ok(2),
+test("check fails with error from last failing child check", () => {
+  const checkValue = check.oneOf(
+    () => check.error(1, "is wrong"),
+    () => check.error(2, "is wrong"),
     () => check.error(3, "is wrong"),
-    () => check.error(4, "is wrong"),
   );
   const result = checkValue(42);
 
@@ -41,26 +30,26 @@ test("check fails with error from first failing child check", () => {
   });
 });
 
-test("child checks are called with previous valid value", () => {
-  const checkOne = jest.fn(() => check.ok(1));
-  const checkTwo = jest.fn(() => check.ok(2));
-  const checkThree = jest.fn(() => check.ok(3));
-  const checkValue = check.chain(checkOne, checkTwo, checkThree);
+test("child checks are called with given value", () => {
+  const checkOne = jest.fn(() => check.error(1, "is wrong"));
+  const checkTwo = jest.fn(() => check.error(2, "is wrong"));
+  const checkThree = jest.fn(() => check.error(3, "is wrong"));
+  const checkValue = check.oneOf(checkOne, checkTwo, checkThree);
   checkValue(42);
 
   expect(checkOne).toHaveBeenCalledTimes(1);
   expect(checkOne).toHaveBeenCalledWith(42);
   expect(checkTwo).toHaveBeenCalledTimes(1);
-  expect(checkTwo).toHaveBeenCalledWith(1);
+  expect(checkTwo).toHaveBeenCalledWith(42);
   expect(checkThree).toHaveBeenCalledTimes(1);
-  expect(checkThree).toHaveBeenCalledWith(2);
+  expect(checkThree).toHaveBeenCalledWith(42);
 });
 
 test("child checks are called with the additional arguments", () => {
-  const checkOne = jest.fn(() => check.ok(1));
-  const checkTwo = jest.fn(() => check.ok(2));
-  const checkThree = jest.fn(() => check.ok(3));
-  const checkValue = check.chain<unknown, number, number, number, unknown[]>(
+  const checkOne = jest.fn(() => check.error(1, "is wrong"));
+  const checkTwo = jest.fn(() => check.error(2, "is wrong"));
+  const checkThree = jest.fn(() => check.error(3, "is wrong"));
+  const checkValue = check.oneOf<unknown, unknown, unknown, unknown, unknown[]>(
     checkOne,
     checkTwo,
     checkThree,
@@ -75,12 +64,12 @@ test("child checks are called with the additional arguments", () => {
   expect(checkThree).toHaveBeenCalledWith(expect.anything(), "one", "two");
 });
 
-test("child checks are not called after first failure", () => {
-  const checkOne = jest.fn(() => check.ok(1));
-  const checkTwo = jest.fn(() => check.error(2, "is wrong"));
+test("child checks are not called after first success", () => {
+  const checkOne = jest.fn(() => check.error(1, "is wrong"));
+  const checkTwo = jest.fn(() => check.ok(2));
   const checkThree = jest.fn(() => check.ok(3));
   const checkFour = jest.fn(() => check.ok(4));
-  const checkValue = check.chain(checkOne, checkTwo, checkThree, checkFour);
+  const checkValue = check.oneOf(checkOne, checkTwo, checkThree, checkFour);
   checkValue(42);
 
   expect(checkOne).toHaveBeenCalledTimes(1);

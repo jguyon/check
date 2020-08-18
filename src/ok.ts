@@ -16,7 +16,7 @@ export interface OkResult<T> {
  * Creates a valid result.
  *
  * ```js
- * check.ok("value");
+ * ok("value");
  * // => {
  * //   isOk: true,
  * //   value: "value",
