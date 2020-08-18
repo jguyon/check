@@ -58,6 +58,7 @@ export { default as nullable } from "./nullable";
 export { default as nullableAsync } from "./nullableAsync";
 
 export { default as items } from "./items";
+export { default as itemsAsync } from "./itemsAsync";
 export { default as shape } from "./shape";
 export { default as shapeAsync } from "./shapeAsync";
 export { default as tuple } from "./tuple";
