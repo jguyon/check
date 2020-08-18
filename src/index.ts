@@ -61,4 +61,5 @@ export { default as items } from "./items";
 export { default as shape } from "./shape";
 export { default as shapeAsync } from "./shapeAsync";
 export { default as tuple } from "./tuple";
+export { default as tupleAsync } from "./tupleAsync";
 export { default as entries } from "./entries";
