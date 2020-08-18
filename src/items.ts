@@ -22,17 +22,15 @@ import ok from "./ok";
  */
 export default function items<I, O, A extends unknown[]>(
   check: Check<I, O, A>,
-): Check<Iterable<I>, O[], A> {
+): Check<I[], O[], A> {
   return (input, ...args) => {
-    const output = [];
+    const output = new Array(input.length);
 
-    let i = 0;
-    for (const value of input) {
-      const result = check(value, ...args);
+    for (let i = 0; i < input.length; i++) {
+      const result = check(input[i], ...args);
 
       if (result.isOk) {
-        output.push(result.value);
-        i++;
+        output[i] = result.value;
       } else {
         return {
           ...result,
