@@ -3,11 +3,11 @@ import ok from "./ok";
 import err from "./error";
 
 export default function testAsync<V, A extends unknown[]>(
-  predicate: (value: V, ...args: A) => Promise<boolean>,
+  predicate: (value: V, ...args: A) => Promise<boolean> | boolean,
   error?: string,
 ): AsyncCheck<V, V, A>;
 export default function testAsync<V, A extends unknown[]>(
-  predicate: (value: V, ...args: A) => Promise<boolean>,
+  predicate: (value: V, ...args: A) => Promise<boolean> | boolean,
   error: string,
   path: unknown[],
   getInvalidValue: (value: V, ...args: A) => unknown,
@@ -34,7 +34,7 @@ export default function testAsync<V, A extends unknown[]>(
  * @returns An async check function.
  */
 export default function testAsync<V, A extends unknown[]>(
-  predicate: (value: V, ...args: A) => Promise<boolean>,
+  predicate: (value: V, ...args: A) => Promise<boolean> | boolean,
   error: string = "is invalid",
   path: unknown[] = [],
   getInvalidValue?: (value: V, ...args: A) => unknown,

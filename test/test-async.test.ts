@@ -96,3 +96,13 @@ test("given function to get the invalid value is called with the additional argu
   expect(getInvalidValue).toHaveBeenCalledTimes(1);
   expect(getInvalidValue).toHaveBeenCalledWith(expect.anything(), "one", "two");
 });
+
+test("synchronous predicates are handled", async () => {
+  const checkValue = check.testAsync(() => true);
+  const result = await checkValue(42);
+
+  expect(result).toEqual({
+    isOk: true,
+    value: 42,
+  });
+});

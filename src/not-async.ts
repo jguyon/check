@@ -1,13 +1,14 @@
 import AsyncCheck from "./async-check";
+import MaybeAsyncCheck from "./maybe-async-check";
 import ok from "./ok";
 import err from "./error";
 
 export default function notAsync<V, A extends unknown[]>(
-  check: AsyncCheck<V, unknown, A>,
+  check: MaybeAsyncCheck<V, unknown, A>,
   error?: string,
 ): AsyncCheck<V, V, A>;
 export default function notAsync<V, A extends unknown[]>(
-  check: AsyncCheck<V, unknown, A>,
+  check: MaybeAsyncCheck<V, unknown, A>,
   error: string,
   path: unknown[],
   getInvalidValue: (value: V, ...args: A) => unknown,
@@ -33,7 +34,7 @@ export default function notAsync<V, A extends unknown[]>(
  * @returns An async check function.
  */
 export default function notAsync<V, A extends unknown[]>(
-  check: AsyncCheck<V, unknown, A>,
+  check: MaybeAsyncCheck<V, unknown, A>,
   error: string = "is invalid",
   path: unknown[] = [],
   getInvalidValue?: (value: V, ...args: A) => unknown,

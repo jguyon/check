@@ -29,3 +29,13 @@ test("given transform function is called with the additional arguments", async (
   expect(transform).toHaveBeenCalledTimes(1);
   expect(transform).toHaveBeenCalledWith(expect.anything(), "one", "two");
 });
+
+test("synchronous transforms are handled", async () => {
+  const checkValue = check.transformAsync(() => "jerome");
+  const result = await checkValue(42);
+
+  expect(result).toEqual({
+    isOk: true,
+    value: "jerome",
+  });
+});

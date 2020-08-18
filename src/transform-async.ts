@@ -18,7 +18,7 @@ import ok from "./ok";
  * @returns An async check function.
  */
 export default function transformAsync<I, O, A extends unknown[]>(
-  trans: (value: I, ...args: A) => Promise<O>,
+  trans: (value: I, ...args: A) => Promise<O> | O,
 ): AsyncCheck<I, O, A> {
   return async (value: I, ...args: A) => {
     const nextValue = await trans(value, ...args);
