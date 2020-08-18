@@ -25,6 +25,10 @@ import ok from "./ok";
  * check({ one: "one" });
  * // => { isOk: false, ... }
  * ```
+ *
+ * @param checkKey The check function to use on the keys.
+ * @param checkValue The check function to use on the values.
+ * @returns A check function.
  */
 export default function entries<I, O, A extends unknown[]>(
   checkKey: Check<string, string, A>,
