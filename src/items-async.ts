@@ -1,5 +1,5 @@
-import AsyncCheck from "./asyncCheck";
-import MaybeAsyncCheck from "./maybeAsyncCheck";
+import AsyncCheck from "./async-check";
+import MaybeAsyncCheck from "./maybe-async-check";
 import ok from "./ok";
 
 /**

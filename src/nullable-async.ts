@@ -1,14 +1,14 @@
-import AsyncCheck from "./asyncCheck";
-import MaybeAsyncCheck from "./maybeAsyncCheck";
+import AsyncCheck from "./async-check";
+import MaybeAsyncCheck from "./maybe-async-check";
 import ok from "./ok";
 
 /**
- * Asynchronous version of [[`optional`]].
+ * Asynchronous version of [[`nullable`]].
  *
  * ```js
- * const check = optionalAsync(testAsync(async value => value === 42));
+ * const check = nullableAsync(testAsync(async value => value === 42));
  *
- * await check(undefined);
+ * await check(null);
  * // => { isOk: true, ... }
  * await check(42);
  * // => { isOk: true, ... }
@@ -19,12 +19,12 @@ import ok from "./ok";
  * @param check The async check function to run when the value is present.
  * @returns An async check function.
  */
-export default function optionalAsync<I, O, A extends unknown[]>(
+export default function nullableAsync<I, O, A extends unknown[]>(
   check: MaybeAsyncCheck<I, O, A>,
-): AsyncCheck<undefined | I, undefined | O, A> {
+): AsyncCheck<null | I, null | O, A> {
   return async (value, ...args) => {
-    if (value === undefined) {
-      return ok(undefined);
+    if (value === null) {
+      return ok(null);
     } else {
       return await check(value, ...args);
     }

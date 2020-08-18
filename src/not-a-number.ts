@@ -21,7 +21,7 @@ import test from "./test";
  * @param error The error to given when the value is not NaN.
  * @returns A check function.
  */
-export default function NotANumber(
+export default function notANumber(
   error = "is not NaN",
 ): Check<unknown, number, unknown[]> {
   return test((value): value is number => isNaN(value as any), error);

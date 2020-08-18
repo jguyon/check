@@ -1,4 +1,4 @@
-import AsyncCheck from "./asyncCheck";
+import AsyncCheck from "./async-check";
 import ok from "./ok";
 import err from "./error";
 
